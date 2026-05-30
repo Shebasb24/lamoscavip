@@ -2,7 +2,7 @@
 <html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
     
     <!-- ============ PWA META TAGS ============ -->
     <meta name="theme-color" content="#050505">
@@ -51,6 +51,14 @@
     <script>
         tailwind.config = {
             theme: {
+                screens: {
+                    'xs': '360px',
+                    'sm': '480px',
+                    'md': '640px',
+                    'lg': '768px',
+                    'xl': '1024px',
+                    '2xl': '1280px',
+                },
                 extend: {
                     colors: {
                         fly: {
@@ -72,32 +80,44 @@
     
     <style>
         /* ============ BASE ============ */
+        * { -webkit-tap-highlight-color: transparent; }
         body { background-color: #050505; color: #e0e0e0; overflow-x: hidden; font-family: 'Inter', sans-serif; }
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #10b981, #059669); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #10b981, #059669); border-radius: 2px; }
+        
+        /* ============ GRADIENT TEXT ============ */
         .gradient-text { background: linear-gradient(135deg, #34d399, #10b981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .gradient-text-gold { background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .gradient-text-pink { background: linear-gradient(135deg, #f472b6, #ec4899, #db2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .glow-subtle { text-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
-        .glow-gold-subtle { text-shadow: 0 0 15px rgba(245, 158, 11, 0.3); }
-        .glow-pink-subtle { text-shadow: 0 0 15px rgba(236, 72, 153, 0.3); }
-        .border-glow { box-shadow: 0 0 15px rgba(16,185,129,0.2), inset 0 0 15px rgba(16,185,129,0.03); }
-        .border-glow-gold { box-shadow: 0 0 15px rgba(245,158,11,0.2), inset 0 0 15px rgba(245,158,11,0.03); }
-        .border-glow-pink { box-shadow: 0 0 15px rgba(236,72,153,0.2), inset 0 0 15px rgba(236,72,153,0.03); }
+        
+        /* ============ GLOW ============ */
+        .glow-subtle { text-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
+        .glow-gold-subtle { text-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+        .glow-pink-subtle { text-shadow: 0 0 10px rgba(236, 72, 153, 0.3); }
+        
+        /* ============ BORDER GLOW ============ */
+        .border-glow { box-shadow: 0 0 10px rgba(16,185,129,0.15), inset 0 0 10px rgba(16,185,129,0.02); }
+        .border-glow-gold { box-shadow: 0 0 10px rgba(245,158,11,0.15), inset 0 0 10px rgba(245,158,11,0.02); }
+        .border-glow-pink { box-shadow: 0 0 10px rgba(236,72,153,0.15), inset 0 0 10px rgba(236,72,153,0.02); }
+        
+        /* ============ GLASS ============ */
         .glass-dark { background: rgba(10,10,10,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.06); }
-        @keyframes flyBuzz { 0%,100%{transform:translate(0,0)rotate(0deg)}25%{transform:translate(10px,-15px)rotate(5deg)}50%{transform:translate(-5px,-25px)rotate(-3deg)}75%{transform:translate(-15px,-10px)rotate(2deg)} }
-        @keyframes flyFloat { 0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)} }
-        @keyframes pulse-green { 0%,100%{box-shadow:0 0 15px rgba(16,185,129,0.3)}50%{box-shadow:0 0 30px rgba(16,185,129,0.5),0 0 45px rgba(16,185,129,0.2)} }
-        @keyframes pulse-pink { 0%,100%{box-shadow:0 0 15px rgba(236,72,153,0.3)}50%{box-shadow:0 0 30px rgba(236,72,153,0.5),0 0 45px rgba(236,72,153,0.2)} }
+        
+        /* ============ ANIMATIONS ============ */
+        @keyframes flyBuzz { 0%,100%{transform:translate(0,0)rotate(0deg)}25%{transform:translate(8px,-10px)rotate(5deg)}50%{transform:translate(-4px,-18px)rotate(-3deg)}75%{transform:translate(-10px,-8px)rotate(2deg)} }
+        @keyframes flyFloat { 0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)} }
+        @keyframes pulse-green { 0%,100%{box-shadow:0 0 10px rgba(16,185,129,0.3)}50%{box-shadow:0 0 20px rgba(16,185,129,0.5),0 0 35px rgba(16,185,129,0.2)} }
+        @keyframes pulse-pink { 0%,100%{box-shadow:0 0 10px rgba(236,72,153,0.3)}50%{box-shadow:0 0 20px rgba(236,72,153,0.5),0 0 35px rgba(236,72,153,0.2)} }
         @keyframes scanLine { 0%{top:-100%}100%{top:100%} }
-        @keyframes pulse-dot { 0%{transform:scale(1);box-shadow:0 0 0 0 rgba(16,185,129,0.7)}70%{transform:scale(1.2);box-shadow:0 0 0 12px rgba(16,185,129,0)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(16,185,129,0)} }
+        @keyframes pulse-dot { 0%{transform:scale(1);box-shadow:0 0 0 0 rgba(16,185,129,0.7)}70%{transform:scale(1.2);box-shadow:0 0 0 8px rgba(16,185,129,0)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(16,185,129,0)} }
         @keyframes timerPulse { 0%,100%{opacity:1}50%{opacity:0.6} }
         @keyframes shine { 0%{left:-100%}100%{left:200%} }
         @keyframes sparkle { 0%,100%{opacity:0;transform:scale(0)}50%{opacity:1;transform:scale(1)} }
         @keyframes confetti { 0%{transform:translateY(0)rotate(0)}100%{transform:translateY(-100vh)rotate(720deg)} }
-        @keyframes infiniteSymbol { 0%,100%{transform:scale(1)}50%{transform:scale(1.3);text-shadow:0 0 20px rgba(16,185,129,0.8)} }
-        @keyframes counterGlow { 0%,100%{box-shadow:0 0 10px rgba(16,185,129,0.3)}50%{box-shadow:0 0 25px rgba(16,185,129,0.6),0 0 50px rgba(16,185,129,0.3)} }
+        @keyframes infiniteSymbol { 0%,100%{transform:scale(1)}50%{transform:scale(1.3);text-shadow:0 0 15px rgba(16,185,129,0.8)} }
+        @keyframes counterGlow { 0%,100%{box-shadow:0 0 8px rgba(16,185,129,0.3)}50%{box-shadow:0 0 18px rgba(16,185,129,0.5),0 0 35px rgba(16,185,129,0.3)} }
+        
         .fly-buzz { animation: flyBuzz 4s ease-in-out infinite; }
         .fly-float { animation: flyFloat 3s ease-in-out infinite; }
         .pulse-green { animation: pulse-green 2s ease-in-out infinite; }
@@ -106,77 +126,100 @@
         .timer-pulse { animation: timerPulse 1s ease-in-out infinite; }
         .infinite-glow { animation: infiniteSymbol 2s ease-in-out infinite; display: inline-block; }
         .counter-glow { animation: counterGlow 2s ease-in-out infinite; }
-        .scan-line::after { content:''; position:absolute; top:-100%; left:0; width:100%; height:2px; background:linear-gradient(90deg,transparent,rgba(16,185,129,0.4),transparent); animation:scanLine 8s linear infinite; }
-        .reveal { opacity:0; transform:translateY(30px); transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+        
+        /* ============ SCAN LINE ============ */
+        .scan-line::after { content:''; position:absolute; top:-100%; left:0; width:100%; height:1px; background:linear-gradient(90deg,transparent,rgba(16,185,129,0.3),transparent); animation:scanLine 8s linear infinite; }
+        
+        /* ============ MISC ============ */
+        .reveal { opacity:0; transform:translateY(20px); transition:all 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
         .reveal.active { opacity:1; transform:translateY(0); }
         .tilt-card { transition:transform 0.1s ease; transform-style:preserve-3d; perspective:1000px; }
         .blur-bg { filter:blur(15px); pointer-events:none; }
         .hover-scale { transition:transform 0.3s ease; }
-        .hover-scale:hover { transform:scale(1.03); }
+        .hover-scale:active { transform:scale(0.97); }
         .price-highlight { background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(52,211,153,0.1)); border:1px solid rgba(16,185,129,0.2); }
         .shine-effect { position:relative; overflow:hidden; }
-        .shine-effect::before { content:''; position:absolute; top:0; left:-100%; width:50%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent); animation:shine 3s infinite; }
+        .shine-effect::before { content:''; position:absolute; top:0; left:-100%; width:50%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.02),transparent); animation:shine 3s infinite; }
         .sparkle { animation:sparkle 2s ease-in-out infinite; }
         #flyCanvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
-        .calc-btn { transition:all 0.2s ease; }
-        .calc-btn:active { transform:scale(0.95); }
+        .calc-btn { transition:all 0.15s ease; }
+        .calc-btn:active { transform:scale(0.9); }
         input[type="number"]::-webkit-inner-spin-button { opacity:1; }
-        .confetti-piece { position:fixed; width:10px; height:10px; top:-10px; animation:confetti 3s linear forwards; pointer-events:none; z-index:9999; }
+        .confetti-piece { position:fixed; width:8px; height:8px; top:-10px; animation:confetti 3s linear forwards; pointer-events:none; z-index:9999; }
         
-        /* ============ PWA INSTALL PROMPT ============ */
+        /* ============ SAFE AREA (iPhone notch) ============ */
+        .safe-top { padding-top: env(safe-area-inset-top, 16px); }
+        .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 16px); }
+        
+        /* ============ INSTALL PROMPT ============ */
         #installPrompt {
-            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+            position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
             z-index: 999; background: rgba(10,10,10,0.95); backdrop-filter: blur(20px);
-            border: 2px solid #10b981; border-radius: 20px; padding: 16px 24px;
-            display: none; align-items: center; gap: 16px;
-            box-shadow: 0 0 30px rgba(16,185,129,0.4); animation: flyFloat 3s ease-in-out infinite;
+            border: 2px solid #10b981; border-radius: 16px; padding: 12px 18px;
+            display: none; align-items: center; gap: 12px;
+            box-shadow: 0 0 20px rgba(16,185,129,0.4);
+            width: 90%; max-width: 380px;
         }
         #installPrompt.show { display: flex; }
         #installBtn {
             background: linear-gradient(135deg, #10b981, #059669); color: white;
-            border: none; padding: 10px 20px; border-radius: 50px;
+            border: none; padding: 8px 16px; border-radius: 50px;
             font-family: 'Kanit', sans-serif; font-weight: bold; text-transform: uppercase;
-            cursor: pointer; white-space: nowrap; letter-spacing: 1px;
+            cursor: pointer; white-space: nowrap; font-size: 0.75rem; letter-spacing: 1px;
         }
-        #closePrompt {
-            background: none; border: none; color: #666; font-size: 20px;
-            cursor: pointer; padding: 4px 8px;
+        #closePrompt { background: none; border: none; color: #666; font-size: 18px; cursor: pointer; padding: 2px 6px; }
+
+        /* ============ RESPONSIVE FIXES ============ */
+        @media (max-width: 360px) {
+            .hero-title-text { font-size: 3.5rem !important; }
+            .section-title-text { font-size: 2rem !important; }
+            .price-text { font-size: 2.5rem !important; }
         }
+        @media (min-width: 361px) and (max-width: 480px) {
+            .hero-title-text { font-size: 5rem !important; }
+            .section-title-text { font-size: 2.5rem !important; }
+        }
+        
+        /* Fix for iOS Safari 100vh issue */
+        .h-screen-ios { height: 100vh; height: -webkit-fill-available; }
+        
+        /* Better touch targets */
+        a, button, .clickable { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased safe-top safe-bottom">
 
     <!-- ============ PARTICLE BACKGROUND ============ -->
     <canvas id="flyCanvas"></canvas>
 
     <!-- ============ INSTALL PROMPT ============ -->
     <div id="installPrompt">
-        <span style="font-size:2rem;">🪰</span>
-        <div>
-            <p style="color:#10b981;font-family:'Kanit',sans-serif;font-weight:bold;font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;">Instalar App</p>
-            <p style="color:#999;font-size:0.7rem;">Agrega Mosca VIP a tu pantalla</p>
+        <span style="font-size:1.8rem;">🪰</span>
+        <div style="flex:1;min-width:0;">
+            <p style="color:#10b981;font-family:'Kanit',sans-serif;font-weight:bold;font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;">Instalar App</p>
+            <p style="color:#999;font-size:0.65rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Agrega a pantalla de inicio</p>
         </div>
         <button id="installBtn" onclick="installApp()">Instalar</button>
         <button id="closePrompt" onclick="closeInstallPrompt()">✕</button>
     </div>
 
     <!-- ============ AGE GATE ============ -->
-    <div id="ageGate" class="fixed inset-0 z-[200] flex items-center justify-center bg-fly-darker/98 backdrop-blur-xl">
-        <div class="glass-dark p-10 rounded-2xl max-w-md w-11/12 text-center border-2 border-fly-primary/30 border-glow scan-line relative overflow-hidden">
+    <div id="ageGate" class="fixed inset-0 z-[200] flex items-center justify-center bg-fly-darker/98 backdrop-blur-xl p-4">
+        <div class="glass-dark p-6 sm:p-10 rounded-2xl max-w-sm w-full text-center border-2 border-fly-primary/30 border-glow scan-line relative overflow-hidden">
             <div class="relative z-10">
-                <div class="text-6xl fly-buzz mb-4">🪰</div>
-                <h2 class="font-display text-5xl font-black gradient-text glow-subtle mb-2">LA MOSCA</h2>
-                <p class="font-heading text-xl text-fly-secondary tracking-widest mb-2">VIP CLUB</p>
-                <div class="w-16 h-1 bg-gradient-to-r from-fly-primary to-fly-secondary mx-auto mb-6 rounded-full"></div>
-                <p class="text-gray-300 text-sm mb-8 leading-relaxed">
+                <div class="text-5xl sm:text-6xl fly-buzz mb-4">🪰</div>
+                <h2 class="font-display text-4xl sm:text-5xl font-black gradient-text glow-subtle mb-2">LA MOSCA</h2>
+                <p class="font-heading text-lg sm:text-xl text-fly-secondary tracking-widest mb-2">VIP CLUB</p>
+                <div class="w-12 sm:w-16 h-1 bg-gradient-to-r from-fly-primary to-fly-secondary mx-auto mb-6 rounded-full"></div>
+                <p class="text-gray-300 text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed">
                     Contenido exclusivo para adultos.<br>
                     ¿Tienes <span class="text-fly-primary font-bold">18 años o más</span>?
                 </p>
-                <div class="flex gap-4 justify-center">
-                    <button onclick="acceptAge()" class="px-8 py-3 bg-gradient-to-r from-fly-primary to-fly-primary-dark text-white font-accent font-bold rounded-lg hover:from-fly-secondary hover:to-fly-primary transition-all uppercase tracking-wider text-sm pulse-green">
+                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <button onclick="acceptAge()" class="px-6 sm:px-8 py-3 bg-gradient-to-r from-fly-primary to-fly-primary-dark text-white font-accent font-bold rounded-lg hover:from-fly-secondary hover:to-fly-primary transition-all uppercase tracking-wider text-xs sm:text-sm pulse-green">
                         ✅ Sí, entrar
                     </button>
-                    <button onclick="rejectAge()" class="px-8 py-3 bg-transparent border border-red-500/50 text-red-400 font-accent font-bold rounded-lg hover:bg-red-500/10 transition-all uppercase tracking-wider text-sm">
+                    <button onclick="rejectAge()" class="px-6 sm:px-8 py-3 bg-transparent border border-red-500/50 text-red-400 font-accent font-bold rounded-lg hover:bg-red-500/10 transition-all uppercase tracking-wider text-xs sm:text-sm">
                         ❌ Salir
                     </button>
                 </div>
@@ -185,16 +228,16 @@
     </div>
 
     <!-- ============ LIVE STATUS ============ -->
-    <div id="liveStatus" class="fixed bottom-6 right-6 z-50 glass-dark rounded-full py-3 px-5 flex items-center gap-3 cursor-pointer hover:scale-105 transition-all border border-fly-primary/30" onclick="document.getElementById('horarios').scrollIntoView({behavior:'smooth'})">
-        <div id="statusDot" class="w-3 h-3 rounded-full bg-fly-primary status-pulse"></div>
-        <span id="statusText" class="font-accent text-xs uppercase tracking-widest text-fly-primary font-bold">ABIERTO</span>
+    <div id="liveStatus" class="fixed bottom-4 sm:bottom-6 right-3 sm:right-6 z-50 glass-dark rounded-full py-2 sm:py-3 px-3 sm:px-5 flex items-center gap-2 sm:gap-3 cursor-pointer hover:scale-105 transition-all border border-fly-primary/30" onclick="document.getElementById('horarios').scrollIntoView({behavior:'smooth'})">
+        <div id="statusDot" class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-fly-primary status-pulse"></div>
+        <span id="statusText" class="font-accent text-[10px] sm:text-xs uppercase tracking-widest text-fly-primary font-bold">ABIERTO</span>
     </div>
 
     <!-- ============ LIVE VISITORS COUNTER ============ -->
-    <div id="liveCounter" class="fixed bottom-6 left-6 z-50 glass-dark rounded-full py-3 px-5 flex items-center gap-3 border border-fly-pink/30 counter-glow">
-        <div class="w-3 h-3 rounded-full bg-fly-pink status-pulse"></div>
-        <span class="font-accent text-xs uppercase tracking-widest text-fly-pink font-bold">
-            🟢 <span id="visitorCount" class="live-counter inline-block">47</span> EN VIVO
+    <div id="liveCounter" class="fixed bottom-4 sm:bottom-6 left-3 sm:left-6 z-50 glass-dark rounded-full py-2 sm:py-3 px-3 sm:px-5 flex items-center gap-2 sm:gap-3 border border-fly-pink/30 counter-glow">
+        <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-fly-pink status-pulse"></div>
+        <span class="font-accent text-[10px] sm:text-xs uppercase tracking-widest text-fly-pink font-bold">
+            🟢 <span id="visitorCount" class="live-counter inline-block">47</span>
         </span>
     </div>
 
@@ -202,30 +245,30 @@
     <div id="mainContent" class="blur-bg transition-all duration-700 relative z-10">
 
         <!-- ============ NAVIGATION ============ -->
-        <nav id="navbar" class="fixed w-full z-40 transition-all duration-300 py-5 bg-gradient-to-b from-black/95 to-transparent">
-            <div class="container mx-auto px-6 flex justify-between items-center">
-                <a href="#" class="flex items-center gap-3 group">
-                    <span class="text-3xl fly-buzz">🪰</span>
-                    <span class="font-display text-3xl font-black tracking-wider gradient-text glow-subtle group-hover:scale-105 transition-transform">MOSCA VIP</span>
+        <nav id="navbar" class="fixed w-full z-40 transition-all duration-300 py-3 sm:py-5 bg-gradient-to-b from-black/95 to-transparent">
+            <div class="container mx-auto px-4 sm:px-6 flex justify-between items-center">
+                <a href="#" class="flex items-center gap-2 sm:gap-3 group">
+                    <span class="text-2xl sm:text-3xl fly-buzz">🪰</span>
+                    <span class="font-display text-xl sm:text-3xl font-black tracking-wider gradient-text glow-subtle group-hover:scale-105 transition-transform">MOSCA VIP</span>
                 </a>
                 
-                <div class="hidden lg:flex items-center gap-8 text-xs font-accent font-bold tracking-[0.15em] uppercase">
+                <div class="hidden lg:flex items-center gap-4 xl:gap-8 text-[10px] xl:text-xs font-accent font-bold tracking-[0.1em] xl:tracking-[0.15em] uppercase">
                     <a href="#chicas" class="text-fly-pink hover:text-fly-accent transition-colors">Chicas</a>
                     <a href="#menu" class="text-gray-300 hover:text-fly-primary transition-colors">Menú</a>
                     <a href="#calculadora" class="text-fly-gold hover:text-fly-gold-light transition-colors">Calculadora</a>
                     <a href="#vip" class="text-fly-gold hover:text-fly-gold-light transition-colors">Zona VIP</a>
                     <a href="#horarios" class="text-gray-300 hover:text-fly-primary transition-colors">Horarios</a>
-                    <a href="https://wa.me/526862381176" target="_blank" class="ml-4 px-6 py-2.5 bg-gradient-to-r from-fly-primary to-fly-primary-dark text-white rounded-full hover:from-fly-secondary hover:to-fly-primary transition-all pulse-green font-bold text-xs">
-                        <i class="fab fa-whatsapp mr-2"></i> RESERVAR
+                    <a href="https://wa.me/526862381176" target="_blank" class="ml-2 xl:ml-4 px-4 xl:px-6 py-2 xl:py-2.5 bg-gradient-to-r from-fly-primary to-fly-primary-dark text-white rounded-full hover:from-fly-secondary hover:to-fly-primary transition-all pulse-green font-bold text-[10px] xl:text-xs">
+                        <i class="fab fa-whatsapp mr-1 xl:mr-2"></i> RESERVAR
                     </a>
                 </div>
 
-                <button class="lg:hidden text-fly-primary text-3xl" onclick="toggleMenu()">
+                <button class="lg:hidden text-fly-primary text-2xl" onclick="toggleMenu()">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
             
-            <div id="mobileMenu" class="hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-xl flex-col items-center py-8 space-y-6 border-b border-fly-primary/30">
+            <div id="mobileMenu" class="hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-xl flex-col items-center py-6 space-y-5 border-b border-fly-primary/30">
                 <a href="#chicas" class="font-accent uppercase tracking-widest text-fly-pink font-bold text-sm" onclick="toggleMenu()">Chicas</a>
                 <a href="#menu" class="font-accent uppercase tracking-widest text-white font-bold text-sm" onclick="toggleMenu()">Menú</a>
                 <a href="#calculadora" class="font-accent uppercase tracking-widest text-fly-gold font-bold text-sm" onclick="toggleMenu()">Calculadora</a>
@@ -236,62 +279,62 @@
         </nav>
 
         <!-- ============ HERO ============ -->
-        <header id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <header id="inicio" class="relative h-screen-ios flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 z-0">
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.04)_0%,_transparent_70%)]"></div>
                 <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1920&q=80" alt="Club" class="w-full h-full object-cover opacity-15">
             </div>
             
-            <div class="relative z-10 text-center px-4 py-20">
-                <div class="fly-float mb-6">
-                    <span class="text-7xl md:text-8xl inline-block">🪰</span>
+            <div class="relative z-10 text-center px-4 py-12 sm:py-20 w-full max-w-lg mx-auto">
+                <div class="fly-float mb-4 sm:mb-6">
+                    <span class="text-5xl sm:text-7xl md:text-8xl inline-block">🪰</span>
                 </div>
-                <p class="font-accent text-fly-secondary tracking-[0.5em] uppercase text-xs md:text-sm mb-4 reveal">Mexicali's Finest</p>
-                <h1 class="font-display text-7xl md:text-9xl lg:text-[10rem] font-black uppercase tracking-tight gradient-text glow-subtle reveal delay-100 leading-none">
+                <p class="font-accent text-fly-secondary tracking-[0.3em] sm:tracking-[0.5em] uppercase text-[10px] sm:text-xs md:text-sm mb-3 sm:mb-4 reveal">Mexicali's Finest</p>
+                <h1 class="font-display hero-title-text text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-black uppercase tracking-tight gradient-text glow-subtle reveal delay-100 leading-none">
                     MOSCA
                 </h1>
-                <h2 class="font-heading text-2xl md:text-3xl font-bold tracking-[0.3em] text-white mt-2 mb-6 reveal delay-200">VIP CLUB</h2>
+                <h2 class="font-heading text-lg sm:text-2xl md:text-3xl font-bold tracking-[0.2em] sm:tracking-[0.3em] text-white mt-2 mb-4 sm:mb-6 reveal delay-200">VIP CLUB</h2>
                 
-                <div class="inline-block glass-dark px-6 py-3 rounded-full border border-fly-gold/30 mb-4 reveal delay-250">
-                    <p class="font-accent text-fly-gold text-sm uppercase tracking-widest">
-                        🤝 <span class="text-white">COOPERACIÓN VOLUNTARIA:</span> <span class="text-fly-gold-light font-bold text-lg">$50</span> MXN
+                <div class="inline-block glass-dark px-4 sm:px-6 py-2 sm:py-3 rounded-full border border-fly-gold/30 mb-3 sm:mb-4 reveal delay-250">
+                    <p class="font-accent text-fly-gold text-[10px] sm:text-sm uppercase tracking-widest">
+                        🤝 <span class="text-white">COOPERACIÓN:</span> <span class="text-fly-gold-light font-bold text-base sm:text-lg">$50</span> MXN
                     </p>
                 </div>
-                <p class="text-gray-500 text-xs mb-6 reveal delay-250">Para los guardias · Si gustas cooperar, no es obligatorio</p>
+                <p class="text-gray-500 text-[10px] sm:text-xs mb-4 sm:mb-6 reveal delay-250">Guardias · Voluntario, no obligatorio</p>
                 
-                <p class="text-gray-400 text-sm md:text-base flex items-center justify-center gap-2 reveal delay-300">
+                <p class="text-gray-400 text-xs sm:text-sm md:text-base flex items-center justify-center gap-1 sm:gap-2 reveal delay-300 flex-wrap">
                     <i class="fas fa-map-marker-alt text-fly-primary"></i> 
                     C. México 235, Primera, 21100 Mexicali, B.C.
                 </p>
-                <div class="mt-8 reveal delay-400">
-                    <a href="https://wa.me/526862381176" target="_blank" class="inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-fly-primary to-fly-primary-dark text-white font-accent font-bold rounded-full hover:from-fly-secondary hover:to-fly-primary transition-all pulse-green uppercase tracking-wider text-sm">
-                        <i class="fab fa-whatsapp text-xl"></i> Reservar Ahora
+                <div class="mt-6 sm:mt-8 reveal delay-400">
+                    <a href="https://wa.me/526862381176" target="_blank" class="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-fly-primary to-fly-primary-dark text-white font-accent font-bold rounded-full hover:from-fly-secondary hover:to-fly-primary transition-all pulse-green uppercase tracking-wider text-xs sm:text-sm">
+                        <i class="fab fa-whatsapp text-lg sm:text-xl"></i> Reservar Ahora
                     </a>
                 </div>
             </div>
-            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 fly-float">
-                <i class="fas fa-chevron-down text-fly-primary text-2xl opacity-60"></i>
+            <div class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 fly-float">
+                <i class="fas fa-chevron-down text-fly-primary text-xl sm:text-2xl opacity-60"></i>
             </div>
         </header>
 
         <!-- ============ CHICAS ============ -->
-        <section id="chicas" class="py-24 bg-fly-darker relative border-t border-fly-pink/20">
-            <div class="absolute top-0 left-0 w-96 h-96 bg-fly-pink/3 blur-[200px] rounded-full pointer-events-none"></div>
-            <div class="absolute bottom-0 right-0 w-96 h-96 bg-fly-purple/3 blur-[200px] rounded-full pointer-events-none"></div>
-            <div class="container mx-auto px-6 relative z-10">
+        <section id="chicas" class="py-16 sm:py-24 bg-fly-darker relative border-t border-fly-pink/20">
+            <div class="absolute top-0 left-0 w-64 sm:w-96 h-64 sm:h-96 bg-fly-pink/3 blur-[150px] sm:blur-[200px] rounded-full pointer-events-none"></div>
+            <div class="absolute bottom-0 right-0 w-64 sm:w-96 h-64 sm:h-96 bg-fly-purple/3 blur-[150px] sm:blur-[200px] rounded-full pointer-events-none"></div>
+            <div class="container mx-auto px-4 sm:px-6 relative z-10">
                 <div class="text-center reveal">
-                    <span class="text-6xl inline-block fly-float mb-6">💃</span>
-                    <h2 class="font-display text-5xl md:text-6xl lg:text-7xl font-black uppercase text-white mb-4">Más de <span class="gradient-text-pink glow-pink-subtle">50 Hermosas</span> Mujeres</h2>
-                    <p class="font-heading text-gray-400 tracking-widest text-lg mb-2">Las más bellas de Mexicali te esperan</p>
-                    <p class="text-fly-pink/60 text-sm mb-10">Rotación diaria · Nuevos talentos cada semana</p>
-                    <div class="flex justify-center gap-4 text-4xl mb-12 fly-float">
+                    <span class="text-4xl sm:text-6xl inline-block fly-float mb-4 sm:mb-6">💃</span>
+                    <h2 class="font-display section-title-text text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase text-white mb-3 sm:mb-4">Más de <span class="gradient-text-pink glow-pink-subtle">50 Hermosas</span> Mujeres</h2>
+                    <p class="font-heading text-gray-400 tracking-widest text-sm sm:text-lg mb-2">Las más bellas de Mexicali te esperan</p>
+                    <p class="text-fly-pink/60 text-xs sm:text-sm mb-8 sm:mb-10">Rotación diaria · Nuevos talentos cada semana</p>
+                    <div class="flex justify-center gap-3 sm:gap-4 text-2xl sm:text-4xl mb-8 sm:mb-12 fly-float">
                         <span class="sparkle">💋</span><span>💃</span><span class="sparkle">✨</span><span>🔥</span><span class="sparkle">👠</span><span>💎</span><span class="sparkle">🌹</span>
                     </div>
-                    <div class="inline-block glass-dark px-10 py-8 rounded-3xl border-2 border-fly-pink/30 border-glow-pink shine-effect">
-                        <p class="text-gray-200 text-xl mb-4 font-accent">¿Quieres conocerlas?</p>
-                        <p class="text-fly-pink font-accent font-bold text-3xl mb-6">+50 CHICAS DISPONIBLES</p>
-                        <a href="https://wa.me/526862381176" target="_blank" class="inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-fly-pink to-pink-600 text-white font-accent font-bold rounded-full hover:from-pink-400 hover:to-fly-pink transition-all pulse-pink uppercase tracking-wider text-sm">
-                            <i class="fab fa-whatsapp text-xl"></i> Ver Disponibilidad Hoy
+                    <div class="inline-block glass-dark px-6 sm:px-10 py-6 sm:py-8 rounded-3xl border-2 border-fly-pink/30 border-glow-pink shine-effect w-full max-w-md">
+                        <p class="text-gray-200 text-base sm:text-xl mb-3 sm:mb-4 font-accent">¿Quieres conocerlas?</p>
+                        <p class="text-fly-pink font-accent font-bold text-xl sm:text-3xl mb-4 sm:mb-6">+50 CHICAS DISPONIBLES</p>
+                        <a href="https://wa.me/526862381176" target="_blank" class="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-fly-pink to-pink-600 text-white font-accent font-bold rounded-full hover:from-pink-400 hover:to-fly-pink transition-all pulse-pink uppercase tracking-wider text-xs sm:text-sm">
+                            <i class="fab fa-whatsapp text-lg sm:text-xl"></i> Ver Disponibilidad Hoy
                         </a>
                     </div>
                 </div>
@@ -299,84 +342,149 @@
         </section>
 
         <!-- ============ MENÚ ============ -->
-        <section id="menu" class="py-24 bg-black relative border-t border-fly-primary/20">
-            <div class="absolute top-0 right-0 w-96 h-96 bg-fly-primary/3 blur-[200px] rounded-full pointer-events-none"></div>
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="text-center mb-16 reveal">
-                    <span class="text-5xl inline-block fly-buzz mb-4">🪰</span>
-                    <h2 class="font-display text-5xl md:text-6xl font-black uppercase gradient-text glow-subtle">Menú</h2>
-                    <p class="font-heading text-fly-secondary tracking-widest mt-2">Precios Directos, Sin Complicaciones</p>
+        <section id="menu" class="py-16 sm:py-24 bg-black relative border-t border-fly-primary/20">
+            <div class="absolute top-0 right-0 w-64 sm:w-96 h-64 sm:h-96 bg-fly-primary/3 blur-[150px] sm:blur-[200px] rounded-full pointer-events-none"></div>
+            <div class="container mx-auto px-4 sm:px-6 relative z-10">
+                <div class="text-center mb-10 sm:mb-16 reveal">
+                    <span class="text-4xl sm:text-5xl inline-block fly-buzz mb-4">🪰</span>
+                    <h2 class="font-display section-title-text text-3xl sm:text-5xl md:text-6xl font-black uppercase gradient-text glow-subtle">Menú</h2>
+                    <p class="font-heading text-fly-secondary tracking-widest text-sm sm:text-base mt-2">Precios Directos, Sin Complicaciones</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                    <div class="tilt-card glass-dark p-8 rounded-2xl text-center border-2 border-fly-gold/30 border-glow-gold hover-scale transition-all relative overflow-hidden scan-line reveal delay-100 lg:col-span-1 md:col-span-2">
-                        <div class="absolute top-3 left-3 text-xs font-accent text-fly-gold/60 uppercase tracking-widest">VOLUNTARIO</div>
-                        <div class="text-5xl mb-4">🤝</div>
-                        <h3 class="font-display text-3xl font-black text-white mb-2">COOPERACIÓN</h3>
-                        <p class="text-gray-400 text-sm mb-4">Para los guardias · Si gustas cooperar</p>
-                        <div class="text-5xl font-accent font-black gradient-text-gold glow-gold-subtle">$50</div>
-                        <p class="text-gray-500 text-xs mt-2">No es obligatorio</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+                    
+                    <!-- Cooperación -->
+                    <div class="tilt-card glass-dark p-5 sm:p-8 rounded-2xl text-center border-2 border-fly-gold/30 border-glow-gold hover-scale transition-all relative overflow-hidden scan-line reveal delay-100 sm:col-span-2 lg:col-span-1">
+                        <div class="absolute top-2 sm:top-3 left-2 sm:left-3 text-[10px] sm:text-xs font-accent text-fly-gold/60 uppercase tracking-widest">VOLUNTARIO</div>
+                        <div class="text-3xl sm:text-5xl mb-3 sm:mb-4">🤝</div>
+                        <h3 class="font-display text-xl sm:text-3xl font-black text-white mb-1 sm:mb-2">COOPERACIÓN</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Para los guardias · Si gustas</p>
+                        <div class="text-3xl sm:text-5xl font-accent font-black gradient-text-gold glow-gold-subtle">$50</div>
+                        <p class="text-gray-500 text-[10px] sm:text-xs mt-1 sm:mt-2">No es obligatorio</p>
                     </div>
-                    <div class="tilt-card glass-dark p-8 rounded-2xl text-center border-2 border-fly-primary/30 border-glow hover-scale transition-all relative overflow-hidden scan-line reveal delay-200">
-                        <div class="absolute top-3 left-3 text-xs font-accent text-fly-primary/60 uppercase tracking-widest">CLÁSICO</div>
-                        <div class="text-5xl mb-4">🍺</div>
-                        <h3 class="font-display text-3xl font-black text-white mb-2">LAS MEDIAS</h3>
-                        <p class="text-gray-400 text-sm mb-4">Cerveza bien fría</p>
-                        <div class="text-5xl font-accent font-black gradient-text glow-subtle">$80</div>
-                        <p class="text-gray-500 text-xs mt-2">c/u</p>
+
+                    <div class="tilt-card glass-dark p-5 sm:p-8 rounded-2xl text-center border-2 border-fly-primary/30 border-glow hover-scale transition-all relative overflow-hidden scan-line reveal delay-200">
+                        <div class="absolute top-2 sm:top-3 left-2 sm:left-3 text-[10px] sm:text-xs font-accent text-fly-primary/60 uppercase tracking-widest">CLÁSICO</div>
+                        <div class="text-3xl sm:text-5xl mb-3 sm:mb-4">🍺</div>
+                        <h3 class="font-display text-xl sm:text-3xl font-black text-white mb-1 sm:mb-2">LAS MEDIAS</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Cerveza bien fría</p>
+                        <div class="text-3xl sm:text-5xl font-accent font-black gradient-text glow-subtle">$80</div>
+                        <p class="text-gray-500 text-[10px] sm:text-xs mt-1 sm:mt-2">c/u</p>
                     </div>
-                    <div class="tilt-card glass-dark p-8 rounded-2xl text-center border-2 border-fly-gold/30 border-glow-gold hover-scale transition-all relative overflow-hidden scan-line reveal delay-300">
-                        <div class="absolute top-3 right-3 text-xs font-accent text-fly-gold/70 uppercase tracking-widest">POPULAR</div>
-                        <div class="text-5xl mb-4">🧊</div>
-                        <h3 class="font-display text-3xl font-black text-white mb-2">LA CUBETA</h3>
-                        <p class="text-gray-400 text-sm mb-4">Varias chelas para la banda</p>
-                        <div class="text-5xl font-accent font-black gradient-text-gold glow-gold-subtle">$600</div>
-                        <p class="text-gray-500 text-xs mt-2">cubeta</p>
+
+                    <div class="tilt-card glass-dark p-5 sm:p-8 rounded-2xl text-center border-2 border-fly-gold/30 border-glow-gold hover-scale transition-all relative overflow-hidden scan-line reveal delay-300">
+                        <div class="absolute top-2 sm:top-3 right-2 sm:right-3 text-[10px] sm:text-xs font-accent text-fly-gold/70 uppercase tracking-widest">POPULAR</div>
+                        <div class="text-3xl sm:text-5xl mb-3 sm:mb-4">🧊</div>
+                        <h3 class="font-display text-xl sm:text-3xl font-black text-white mb-1 sm:mb-2">LA CUBETA</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Varias chelas para la banda</p>
+                        <div class="text-3xl sm:text-5xl font-accent font-black gradient-text-gold glow-gold-subtle">$600</div>
+                        <p class="text-gray-500 text-[10px] sm:text-xs mt-1 sm:mt-2">cubeta</p>
                     </div>
-                    <div class="tilt-card glass-dark p-8 rounded-2xl text-center border border-fly-primary/30 hover:border-fly-primary/50 hover-scale transition-all relative overflow-hidden reveal delay-400">
-                        <div class="text-5xl mb-4">💃</div>
-                        <h3 class="font-display text-3xl font-black text-white mb-2">BAILE DE MESA</h3>
-                        <p class="text-gray-400 text-sm mb-4">Show privado en tu mesa</p>
-                        <div class="text-5xl font-accent font-black gradient-text glow-subtle">$150</div>
+
+                    <div class="tilt-card glass-dark p-5 sm:p-8 rounded-2xl text-center border border-fly-primary/30 hover:border-fly-primary/50 hover-scale transition-all relative overflow-hidden reveal delay-400">
+                        <div class="text-3xl sm:text-5xl mb-3 sm:mb-4">💃</div>
+                        <h3 class="font-display text-xl sm:text-3xl font-black text-white mb-1 sm:mb-2">BAILE DE MESA</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Show privado en tu mesa</p>
+                        <div class="text-3xl sm:text-5xl font-accent font-black gradient-text glow-subtle">$150</div>
                     </div>
-                    <div class="tilt-card glass-dark p-8 rounded-2xl text-center border border-fly-primary/40 hover:border-fly-primary/60 hover-scale transition-all relative overflow-hidden reveal delay-500">
-                        <div class="absolute top-3 left-3 text-xs font-accent text-fly-primary/60 uppercase tracking-widest">HOT</div>
-                        <div class="text-5xl mb-4">🔥</div>
-                        <h3 class="font-display text-3xl font-black text-white mb-2">BAILE PRIVADO</h3>
-                        <p class="text-gray-400 text-sm mb-4">Experiencia más íntima</p>
-                        <div class="text-5xl font-accent font-black gradient-text glow-subtle">$250</div>
+
+                    <div class="tilt-card glass-dark p-5 sm:p-8 rounded-2xl text-center border border-fly-primary/40 hover:border-fly-primary/60 hover-scale transition-all relative overflow-hidden reveal delay-500">
+                        <div class="absolute top-2 sm:top-3 left-2 sm:left-3 text-[10px] sm:text-xs font-accent text-fly-primary/60 uppercase tracking-widest">HOT</div>
+                        <div class="text-3xl sm:text-5xl mb-3 sm:mb-4">🔥</div>
+                        <h3 class="font-display text-xl sm:text-3xl font-black text-white mb-1 sm:mb-2">BAILE PRIVADO</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Experiencia más íntima</p>
+                        <div class="text-3xl sm:text-5xl font-accent font-black gradient-text glow-subtle">$250</div>
                     </div>
-                    <div class="tilt-card glass-dark p-8 rounded-2xl text-center border-2 border-fly-primary/40 border-glow hover-scale transition-all relative overflow-hidden scan-line reveal delay-600">
-                        <div class="absolute top-3 right-3 text-xs font-accent text-fly-primary/70 uppercase tracking-widest">PREMIUM</div>
-                        <div class="text-5xl mb-4">👑</div>
-                        <h3 class="font-display text-3xl font-black text-white mb-2">BAILE PRIVADO VIP</h3>
-                        <p class="text-gray-400 text-sm mb-4">Lo mejor de lo mejor</p>
-                        <div class="text-5xl font-accent font-black gradient-text glow-subtle">$500</div>
+
+                    <div class="tilt-card glass-dark p-5 sm:p-8 rounded-2xl text-center border-2 border-fly-primary/40 border-glow hover-scale transition-all relative overflow-hidden scan-line reveal delay-600">
+                        <div class="absolute top-2 sm:top-3 right-2 sm:right-3 text-[10px] sm:text-xs font-accent text-fly-primary/70 uppercase tracking-widest">PREMIUM</div>
+                        <div class="text-3xl sm:text-5xl mb-3 sm:mb-4">👑</div>
+                        <h3 class="font-display text-xl sm:text-3xl font-black text-white mb-1 sm:mb-2">BAILE PRIVADO VIP</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Lo mejor de lo mejor</p>
+                        <div class="text-3xl sm:text-5xl font-accent font-black gradient-text glow-subtle">$500</div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ============ CALCULADORA ============ -->
-        <section id="calculadora" class="py-24 bg-fly-darker relative border-t border-fly-gold/20">
-            <div class="absolute top-0 right-0 w-96 h-96 bg-fly-gold/3 blur-[200px] rounded-full pointer-events-none"></div>
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="text-center mb-16 reveal">
-                    <span class="text-5xl inline-block mb-4">🧮</span>
-                    <h2 class="font-display text-5xl md:text-6xl font-black uppercase text-white mb-2">Calcula tu <span class="gradient-text-gold glow-gold-subtle">Cuenta</span></h2>
-                    <p class="font-heading text-gray-400 tracking-widest">Arma tu plan y calcula cuánto vas a gastar</p>
+        <section id="calculadora" class="py-16 sm:py-24 bg-fly-darker relative border-t border-fly-gold/20">
+            <div class="absolute top-0 right-0 w-64 sm:w-96 h-64 sm:h-96 bg-fly-gold/3 blur-[150px] sm:blur-[200px] rounded-full pointer-events-none"></div>
+            <div class="container mx-auto px-4 sm:px-6 relative z-10">
+                <div class="text-center mb-10 sm:mb-16 reveal">
+                    <span class="text-4xl sm:text-5xl inline-block mb-4">🧮</span>
+                    <h2 class="font-display section-title-text text-3xl sm:text-5xl md:text-6xl font-black uppercase text-white mb-2">Calcula tu <span class="gradient-text-gold glow-gold-subtle">Cuenta</span></h2>
+                    <p class="font-heading text-gray-400 tracking-widest text-sm sm:text-base">Arma tu plan y calcula cuánto vas a gastar</p>
                 </div>
-                <div class="max-w-2xl mx-auto">
-                    <div class="glass-dark p-8 rounded-3xl border-2 border-fly-gold/30 border-glow-gold reveal">
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between"><label class="text-white font-accent text-sm">🍺 Medias ($80 c/u)</label><div class="flex items-center gap-2"><button onclick="changeQty('medias',-1)" class="calc-btn w-8 h-8 rounded-full bg-fly-primary/20 text-fly-primary hover:bg-fly-primary/40 font-bold">-</button><input type="number" id="medias" value="0" min="0" class="w-16 text-center bg-transparent border border-fly-primary/30 rounded-lg text-white font-bold py-1" onchange="calculateTotal()"><button onclick="changeQty('medias',1)" class="calc-btn w-8 h-8 rounded-full bg-fly-primary/20 text-fly-primary hover:bg-fly-primary/40 font-bold">+</button></div></div>
-                            <div class="flex items-center justify-between"><label class="text-white font-accent text-sm">🧊 Cubetas ($600 c/u)</label><div class="flex items-center gap-2"><button onclick="changeQty('cubetas',-1)" class="calc-btn w-8 h-8 rounded-full bg-fly-gold/20 text-fly-gold hover:bg-fly-gold/40 font-bold">-</button><input type="number" id="cubetas" value="0" min="0" class="w-16 text-center bg-transparent border border-fly-gold/30 rounded-lg text-white font-bold py-1" onchange="calculateTotal()"><button onclick="changeQty('cubetas',1)" class="calc-btn w-8 h-8 rounded-full bg-fly-gold/20 text-fly-gold hover:bg-fly-gold/40 font-bold">+</button></div></div>
-                            <div class="flex items-center justify-between"><label class="text-white font-accent text-sm">💃 Baile de Mesa ($150 c/u)</label><div class="flex items-center gap-2"><button onclick="changeQty('baileMesa',-1)" class="calc-btn w-8 h-8 rounded-full bg-fly-pink/20 text-fly-pink hover:bg-fly-pink/40 font-bold">-</button><input type="number" id="baileMesa" value="0" min="0" class="w-16 text-center bg-transparent border border-fly-pink/30 rounded-lg text-white font-bold py-1" onchange="calculateTotal()"><button onclick="changeQty('baileMesa',1)" class="calc-btn w-8 h-8 rounded-full bg-fly-pink/20 text-fly-pink hover:bg-fly-pink/40 font-bold">+</button></div></div>
-                            <div class="flex items-center justify-between"><label class="text-white font-accent text-sm">🔥 Baile Privado ($250 c/u)</label><div class="flex items-center gap-2"><button onclick="changeQty('bailePrivado',-1)" class="calc-btn w-8 h-8 rounded-full bg-fly-purple/20 text-fly-purple hover:bg-fly-purple/40 font-bold">-</button><input type="number" id="bailePrivado" value="0" min="0" class="w-16 text-center bg-transparent border border-fly-purple/30 rounded-lg text-white font-bold py-1" onchange="calculateTotal()"><button onclick="changeQty('bailePrivado',1)" class="calc-btn w-8 h-8 rounded-full bg-fly-purple/20 text-fly-purple hover:bg-fly-purple/40 font-bold">+</button></div></div>
-                            <div class="flex items-center justify-between"><label class="text-white font-accent text-sm">👑 Baile VIP ($500 c/u)</label><div class="flex items-center gap-2"><button onclick="changeQty('baileVIP',-1)" class="calc-btn w-8 h-8 rounded-full bg-fly-gold/20 text-fly-gold hover:bg-fly-gold/40 font-bold">-</button><input type="number" id="baileVIP" value="0" min="0" class="w-16 text-center bg-transparent border border-fly-gold/30 rounded-lg text-white font-bold py-1" onchange="calculateTotal()"><button onclick="changeQty('baileVIP',1)" class="calc-btn w-8 h-8 rounded-full bg-fly-gold/20 text-fly-gold hover:bg-fly-gold/40 font-bold">+</button></div></div>
-                            <div class="flex items-center justify-between"><label class="text-white font-accent text-sm">🏆 Sala VIP (las horas que quieras)</label><div class="flex items-center gap-2"><button onclick="changeQty('salaVIP',-1)" class="calc-btn w-8 h-8 rounded-full bg-fly-primary/20 text-fly-primary hover:bg-fly-primary/40 font-bold">-</button><input type="number" id="salaVIP" value="0" min="0" class="w-16 text-center bg-transparent border border-fly-primary/30 rounded-lg text-white font-bold py-1" onchange="calculateTotal()"><button onclick="changeQty('salaVIP',1)" class="calc-btn w-8 h-8 rounded-full bg-fly-primary/20 text-fly-primary hover:bg-fly-primary/40 font-bold">+</button></div></div>
-                            <div class="flex items-center justify-between"><label class="text-white font-accent text-sm">🤝 Cooperación Guardias</label><div class="flex items-center gap-2"><button onclick="changeQty('cooperacion',-1)" class="calc-btn w-8 h-8 rounded-full bg-gray-600/20 text-gray-400 hover:bg-gray-600/40 font-bold">-</button><input type="number" id="cooperacion" value="0" min="0" class="w-16 text-center bg-transparent border border-gray-600/30 rounded-lg text-white font-bold py-1" onchange="calculateTotal()"><button onclick="changeQty('cooperacion',1)" class="calc-btn w-8 h-8 rounded-full bg-gray-600/20 text-gray-400 hover:bg-gray-600/40 font-bold">+</button></div></div>
-                            <div class="border-t-2 border-fly-gold/30 pt-6 mt-6"><div class="flex justify-between items-center"><span class="font-display text-2xl text-white">TOTAL</span><span id="totalAmount" class="font-accent font-black text-4xl gradient-text-gold glow-gold-subtle">$0</span></div><p class="text-gray-500 text-xs mt-2 text-right">* Precios en MXN</p></div>
-                            <div class="text-center mt-6"><button onclick="calculateTotal()" class="px-8 py-3 bg-gradient-to-r from-fly-gold to-amber-600 text-black font-accent font-bold rounded-full hover:from-fly-gold-light hover:to-fly-gold transition-all uppercase tracking-wider text-sm">🧮 Calcular Total</button></div>
+                <div class="max-w-lg mx-auto">
+                    <div class="glass-dark p-5 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-fly-gold/30 border-glow-gold reveal">
+                        <div class="space-y-3 sm:space-y-4">
+                            <!-- Cada item de la calculadora -->
+                            <div class="flex items-center justify-between gap-2">
+                                <label class="text-white font-accent text-[11px] sm:text-sm flex-1 min-w-0">🍺 Medias ($80)</label>
+                                <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                                    <button onclick="changeQty('medias',-1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-fly-primary/20 text-fly-primary font-bold text-sm">-</button>
+                                    <input type="number" id="medias" value="0" min="0" class="w-12 sm:w-16 text-center bg-transparent border border-fly-primary/30 rounded-lg text-white font-bold py-1 text-sm" onchange="calculateTotal()">
+                                    <button onclick="changeQty('medias',1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-fly-primary/20 text-fly-primary font-bold text-sm">+</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <label class="text-white font-accent text-[11px] sm:text-sm flex-1 min-w-0">🧊 Cubetas ($600)</label>
+                                <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                                    <button onclick="changeQty('cubetas',-1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-fly-gold/20 text-fly-gold font-bold text-sm">-</button>
+                                    <input type="number" id="cubetas" value="0" min="0" class="w-12 sm:w-16 text-center bg-transparent border border-fly-gold/30 rounded-lg text-white font-bold py-1 text-sm" onchange="calculateTotal()">
+                                    <button onclick="changeQty('cubetas',1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-fly-gold/20 text-fly-gold font-bold text-sm">+</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <label class="text-white font-accent text-[11px] sm:text-sm flex-1 min-w-0">💃 Baile Mesa ($150)</label>
+                                <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                                    <button onclick="changeQty('baileMesa',-1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-fly-pink/20 text-fly-pink font-bold text-sm">-</button>
+                                    <input type="number" id="baileMesa" value="0" min="0" class="w-12 sm:w-16 text-center bg-transparent border border-fly-pink/30 rounded-lg text-white font-bold py-1 text-sm" onchange="calculateTotal()">
+                                    <button onclick="changeQty('baileMesa',1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-fly-pink/20 text-fly-pink font-bold text-sm">+</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <label class="text-white font-accent text-[11px] sm:text-sm flex-1 min-w-0">🔥 Baile Privado ($250)</label>
+                                <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                                    <button onclick="changeQty('bailePrivado',-1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-fly-purple/20 text-fly-purple font-bold text-sm">-</button>
+                                    <input type="number" id="bailePrivado" value="0" min="0" class="w-12 sm:w-16 text-center bg-transparent border border-fly-purple/30 rounded-lg text-white font-bold py-1 text-sm" onchange="calculateTotal()">
+                                    <button onclick="changeQty('bailePrivado',1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-fly-purple/20 text-fly-purple font-bold text-sm">+</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <label class="text-white font-accent text-[11px] sm:text-sm flex-1 min-w-0">👑 Baile VIP ($500)</label>
+                                <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                                    <button onclick="changeQty('baileVIP',-1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-fly-gold/20 text-fly-gold font-bold text-sm">-</button>
+                                    <input type="number" id="baileVIP" value="0" min="0" class="w-12 sm:w-16 text-center bg-transparent border border-fly-gold/30 rounded-lg text-white font-bold py-1 text-sm" onchange="calculateTotal()">
+                                    <button onclick="changeQty('baileVIP',1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-fly-gold/20 text-fly-gold font-bold text-sm">+</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <label class="text-white font-accent text-[11px] sm:text-sm flex-1 min-w-0">🏆 Sala VIP</label>
+                                <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                                    <button onclick="changeQty('salaVIP',-1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-fly-primary/20 text-fly-primary font-bold text-sm">-</button>
+                                    <input type="number" id="salaVIP" value="0" min="0" class="w-12 sm:w-16 text-center bg-transparent border border-fly-primary/30 rounded-lg text-white font-bold py-1 text-sm" onchange="calculateTotal()">
+                                    <button onclick="changeQty('salaVIP',1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-fly-primary/20 text-fly-primary font-bold text-sm">+</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <label class="text-white font-accent text-[11px] sm:text-sm flex-1 min-w-0">🤝 Cooperación</label>
+                                <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                                    <button onclick="changeQty('cooperacion',-1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-600/20 text-gray-400 font-bold text-sm">-</button>
+                                    <input type="number" id="cooperacion" value="0" min="0" class="w-12 sm:w-16 text-center bg-transparent border border-gray-600/30 rounded-lg text-white font-bold py-1 text-sm" onchange="calculateTotal()">
+                                    <button onclick="changeQty('cooperacion',1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-600/20 text-gray-400 font-bold text-sm">+</button>
+                                </div>
+                            </div>
+                            <!-- Total -->
+                            <div class="border-t-2 border-fly-gold/30 pt-4 sm:pt-6 mt-4 sm:mt-6">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-display text-lg sm:text-2xl text-white">TOTAL</span>
+                                    <span id="totalAmount" class="font-accent font-black text-2xl sm:text-4xl gradient-text-gold glow-gold-subtle">$0</span>
+                                </div>
+                            </div>
+                            <div class="text-center mt-4 sm:mt-6">
+                                <button onclick="calculateTotal()" class="px-6 sm:px-8 py-3 bg-gradient-to-r from-fly-gold to-amber-600 text-black font-accent font-bold rounded-full text-xs sm:text-sm uppercase tracking-wider">🧮 Calcular Total</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -384,64 +492,72 @@
         </section>
 
         <!-- ============ SALA VIP ============ -->
-        <section id="vip" class="py-24 bg-black relative border-t border-fly-primary/20">
-            <div class="absolute top-0 left-0 w-96 h-96 bg-fly-primary/3 blur-[200px] rounded-full pointer-events-none"></div>
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="text-center mb-16 reveal">
-                    <h2 class="font-display text-5xl md:text-6xl font-black uppercase text-white">ZONA <span class="gradient-text glow-subtle">VIP</span></h2>
-                    <p class="font-heading text-gray-400 tracking-widest mt-2">Experiencia premium privada</p>
+        <section id="vip" class="py-16 sm:py-24 bg-black relative border-t border-fly-primary/20">
+            <div class="container mx-auto px-4 sm:px-6 relative z-10">
+                <div class="text-center mb-10 sm:mb-16 reveal">
+                    <h2 class="font-display section-title-text text-3xl sm:text-5xl md:text-6xl font-black uppercase text-white">ZONA <span class="gradient-text glow-subtle">VIP</span></h2>
+                    <p class="font-heading text-gray-400 tracking-widest text-sm sm:text-base mt-2">Experiencia premium privada</p>
                 </div>
-                <div class="max-w-2xl mx-auto">
-                    <div class="glass-dark p-10 rounded-3xl border-2 border-fly-primary/30 border-glow reveal relative overflow-hidden text-center">
-                        <div class="absolute top-0 right-0 w-40 h-40 bg-fly-primary/5 blur-[80px] rounded-full"></div>
-                        <div class="relative z-10">
-                            <span class="text-6xl inline-block mb-6">🏆</span>
-                            <h3 class="font-display text-4xl font-black gradient-text glow-subtle mb-2">SALA VIP</h3>
-                            <p class="font-heading text-fly-secondary tracking-widest text-sm mb-6">ACCESO EXCLUSIVO</p>
-                            <div class="inline-block price-highlight rounded-full px-8 py-4 mb-8 border-fly-primary/40">
-                                <span class="font-accent text-fly-primary text-xl uppercase tracking-widest">⏱️ <span class="infinite-glow text-2xl">∞</span> LAS HORAS QUE QUIERAS</span>
-                            </div>
-                            <p class="text-gray-400 text-base mb-8 max-w-md mx-auto leading-relaxed">Disfruta de nuestra zona más exclusiva <span class="text-fly-primary font-bold">sin límite de tiempo</span>. Tú decides cuánto te quedas.</p>
-                            <div class="text-7xl font-accent font-black gradient-text glow-subtle mb-6">$500</div>
-                            <p class="text-gray-500 text-sm mb-2">Acceso Sala VIP</p>
-                            <p class="text-fly-secondary text-xs mb-8 font-accent">✨ Sin límite de tiempo · Quédate lo que quieras</p>
-                            <div class="text-gray-600 text-xs mb-8">* Las bebidas y servicios adicionales se cotizan por separado</div>
-                            <a href="https://wa.me/526862381176" target="_blank" class="inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-fly-primary to-fly-primary-dark text-white font-accent font-bold rounded-full hover:from-fly-secondary hover:to-fly-primary transition-all pulse-green uppercase tracking-wider text-sm"><i class="fab fa-whatsapp"></i> Reservar Sala VIP</a>
+                <div class="max-w-lg mx-auto">
+                    <div class="glass-dark p-6 sm:p-10 rounded-2xl sm:rounded-3xl border-2 border-fly-primary/30 border-glow reveal text-center">
+                        <span class="text-4xl sm:text-6xl inline-block mb-4 sm:mb-6">🏆</span>
+                        <h3 class="font-display text-2xl sm:text-4xl font-black gradient-text glow-subtle mb-2">SALA VIP</h3>
+                        <p class="font-heading text-fly-secondary tracking-widest text-xs sm:text-sm mb-4 sm:mb-6">ACCESO EXCLUSIVO</p>
+                        <div class="inline-block price-highlight rounded-full px-4 sm:px-8 py-2 sm:py-4 mb-6 sm:mb-8">
+                            <span class="font-accent text-fly-primary text-sm sm:text-xl uppercase tracking-widest">⏱️ <span class="infinite-glow text-lg sm:text-2xl">∞</span> LAS HORAS QUE QUIERAS</span>
                         </div>
+                        <p class="text-gray-400 text-xs sm:text-base mb-6 sm:mb-8">Disfruta <span class="text-fly-primary font-bold">sin límite de tiempo</span>. Tú decides.</p>
+                        <div class="text-5xl sm:text-7xl font-accent font-black gradient-text glow-subtle mb-4 sm:mb-6">$500</div>
+                        <p class="text-gray-500 text-xs sm:text-sm mb-2">Acceso Sala VIP</p>
+                        <p class="text-fly-secondary text-[10px] sm:text-xs mb-6 sm:mb-8">✨ Sin límite de tiempo</p>
+                        <a href="https://wa.me/526862381176" target="_blank" class="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-fly-primary to-fly-primary-dark text-white font-accent font-bold rounded-full pulse-green uppercase tracking-wider text-xs sm:text-sm"><i class="fab fa-whatsapp"></i> Reservar Sala VIP</a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ============ HORARIOS ============ -->
-        <section id="horarios" class="py-20 bg-fly-darker relative border-t border-fly-primary/20">
-            <div class="container mx-auto px-6 text-center reveal">
-                <h2 class="font-display text-5xl font-black uppercase text-white mb-12">Horarios <span class="gradient-text glow-subtle">de Vuelo</span></h2>
-                <div class="max-w-md mx-auto glass-dark p-8 rounded-3xl border-2 border-fly-primary/30 border-glow">
-                    <div class="flex items-center justify-center gap-3 mb-6"><span class="w-3 h-3 rounded-full bg-fly-primary status-pulse"></span><span class="font-accent text-fly-primary uppercase tracking-widest font-bold">Abierto Todos Los Días</span></div>
-                    <div class="text-center"><p class="text-gray-400 text-sm uppercase tracking-widest mb-2">Horario</p><p class="font-display text-5xl font-black text-white">6 PM</p><p class="text-gray-500 text-xs my-2">a</p><p class="font-display text-5xl font-black gradient-text glow-subtle">3 AM</p></div>
-                    <div class="mt-6 pt-6 border-t border-fly-primary/20"><div class="grid grid-cols-7 gap-1 text-[10px] font-accent uppercase tracking-wider"><span class="text-fly-primary">L</span><span class="text-fly-primary">M</span><span class="text-fly-primary">M</span><span class="text-fly-primary">J</span><span class="text-fly-primary">V</span><span class="text-fly-primary">S</span><span class="text-fly-primary">D</span></div><p class="text-fly-secondary text-xs mt-2">Sin descanso, como las moscas 🪰</p></div>
-                    <div class="mt-6 pt-6 border-t border-fly-gold/20"><p class="text-fly-gold/70 text-xs">🤝 Cooperación voluntaria guardias: <span class="text-fly-gold font-bold">$50</span> (si gustas)</p></div>
+        <section id="horarios" class="py-16 sm:py-20 bg-fly-darker relative border-t border-fly-primary/20">
+            <div class="container mx-auto px-4 sm:px-6 text-center reveal">
+                <h2 class="font-display section-title-text text-3xl sm:text-5xl font-black uppercase text-white mb-8 sm:mb-12">Horarios <span class="gradient-text glow-subtle">de Vuelo</span></h2>
+                <div class="max-w-sm mx-auto glass-dark p-6 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-fly-primary/30 border-glow">
+                    <div class="flex items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                        <span class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-fly-primary status-pulse"></span>
+                        <span class="font-accent text-fly-primary uppercase tracking-widest font-bold text-[10px] sm:text-xs">Abierto Todos Los Días</span>
+                    </div>
+                    <p class="text-gray-400 text-[10px] sm:text-sm uppercase tracking-widest mb-2">Horario</p>
+                    <p class="font-display text-3xl sm:text-5xl font-black text-white">6 PM</p>
+                    <p class="text-gray-500 text-[10px] sm:text-xs my-2">a</p>
+                    <p class="font-display text-3xl sm:text-5xl font-black gradient-text glow-subtle">3 AM</p>
+                    <div class="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-fly-primary/20">
+                        <div class="grid grid-cols-7 gap-1 text-[8px] sm:text-[10px] font-accent uppercase tracking-wider">
+                            <span class="text-fly-primary">L</span><span class="text-fly-primary">M</span><span class="text-fly-primary">M</span><span class="text-fly-primary">J</span><span class="text-fly-primary">V</span><span class="text-fly-primary">S</span><span class="text-fly-primary">D</span>
+                        </div>
+                        <p class="text-fly-secondary text-[10px] sm:text-xs mt-2">Sin descanso, como las moscas 🪰</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- ============ FOOTER ============ -->
-        <footer class="bg-black border-t border-fly-primary/20 py-16">
-            <div class="container mx-auto px-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 text-center md:text-left">
+        <footer class="bg-black border-t border-fly-primary/20 py-10 sm:py-16">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 text-center sm:text-left">
                     <div>
-                        <div class="flex items-center justify-center md:justify-start gap-3 mb-4"><span class="text-4xl fly-buzz">🪰</span><span class="font-display text-3xl font-black gradient-text glow-subtle">MOSCA VIP</span></div>
-                        <p class="text-gray-400 text-sm">El club más auténtico del centro de Mexicali.</p>
-                        <div class="flex justify-center md:justify-start space-x-4 mt-4">
-                            <a href="#" class="w-10 h-10 rounded-full bg-fly-gray flex items-center justify-center hover:bg-fly-primary hover:text-black transition-all"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-fly-gray flex items-center justify-center hover:bg-fly-primary hover:text-black transition-all"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://wa.me/526862381176" target="_blank" class="w-10 h-10 rounded-full bg-fly-gray flex items-center justify-center hover:bg-green-500 hover:text-black transition-all"><i class="fab fa-whatsapp"></i></a>
+                        <div class="flex items-center justify-center sm:justify-start gap-2 sm:gap-3 mb-3 sm:mb-4">
+                            <span class="text-3xl sm:text-4xl fly-buzz">🪰</span>
+                            <span class="font-display text-2xl sm:text-3xl font-black gradient-text glow-subtle">MOSCA VIP</span>
+                        </div>
+                        <p class="text-gray-400 text-xs sm:text-sm">El club más auténtico del centro de Mexicali.</p>
+                        <div class="flex justify-center sm:justify-start space-x-3 sm:space-x-4 mt-3 sm:mt-4">
+                            <a href="#" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-fly-gray flex items-center justify-center hover:bg-fly-primary hover:text-black transition-all"><i class="fab fa-instagram text-sm sm:text-base"></i></a>
+                            <a href="#" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-fly-gray flex items-center justify-center hover:bg-fly-primary hover:text-black transition-all"><i class="fab fa-facebook-f text-sm sm:text-base"></i></a>
+                            <a href="https://wa.me/526862381176" target="_blank" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-fly-gray flex items-center justify-center hover:bg-green-500 hover:text-black transition-all"><i class="fab fa-whatsapp text-sm sm:text-base"></i></a>
                         </div>
                     </div>
                     <div>
-                        <h4 class="font-accent text-fly-primary uppercase tracking-widest font-bold mb-4">Info</h4>
-                        <ul class="text-sm text-gray-400 space-y-2">
+                        <h4 class="font-accent text-fly-primary uppercase tracking-widest font-bold text-xs sm:text-sm mb-3 sm:mb-4">Info</h4>
+                        <ul class="text-[11px] sm:text-sm text-gray-400 space-y-2">
                             <li><i class="fas fa-map-marker-alt text-fly-primary mr-2"></i> C. México 235, Primera, 21100 Mexicali, B.C.</li>
                             <li><i class="fas fa-phone text-fly-primary mr-2"></i> +52 686 238 1176</li>
                             <li><i class="fas fa-clock text-fly-primary mr-2"></i> 6 PM - 3 AM | Todos los días</li>
@@ -451,15 +567,15 @@
                         </ul>
                     </div>
                 </div>
-                <div class="border-t border-fly-primary/10 mt-10 pt-8 text-center">
-                    <p class="text-gray-600 text-xs">© 2026 La Mosca VIP Club. Todos los derechos reservados. | Mexicali, B.C. 🪰</p>
-                    <p class="text-gray-700 text-[10px] mt-1">Las moscas no duermen, y tú tampoco.</p>
+                <div class="border-t border-fly-primary/10 mt-8 sm:mt-10 pt-6 sm:pt-8 text-center">
+                    <p class="text-gray-600 text-[10px] sm:text-xs">© 2026 La Mosca VIP Club. Todos los derechos reservados. | Mexicali, B.C. 🪰</p>
+                    <p class="text-gray-700 text-[8px] sm:text-[10px] mt-1">Las moscas no duermen, y tú tampoco.</p>
                 </div>
             </div>
         </footer>
     </div>
 
-    <!-- ============ CONFETTI CONTAINER ============ -->
+    <!-- ============ CONFETTI ============ -->
     <div id="confettiContainer"></div>
 
     <!-- ============ SCRIPTS ============ -->
@@ -467,101 +583,66 @@
         // ============ PWA INSTALL ============
         let deferredPrompt;
         const installPrompt = document.getElementById('installPrompt');
-        
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
             setTimeout(() => { installPrompt.classList.add('show'); }, 3000);
         });
-        
         function installApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('🪰 ¡App instalada! Bienvenido a La Mosca VIP');
-                    }
-                    deferredPrompt = null;
-                });
-            }
+            if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then((r)=>{ if(r.outcome==='accepted') console.log('🪰 App instalada'); deferredPrompt=null; }); }
             installPrompt.classList.remove('show');
         }
-        
         function closeInstallPrompt() { installPrompt.classList.remove('show'); }
-        
-        window.addEventListener('appinstalled', () => {
-            installPrompt.classList.remove('show');
-            console.log('🪰 PWA instalada exitosamente');
-        });
+        window.addEventListener('appinstalled', () => { installPrompt.classList.remove('show'); });
 
         // ============ AGE GATE ============
-        const ageGate = document.getElementById('ageGate');
-        const mainContent = document.getElementById('mainContent');
-        window.onload = () => {
-            if (sessionStorage.getItem('flyAgeVerified')) {
-                ageGate.style.display = 'none';
-                mainContent.classList.remove('blur-bg');
-                initFlyParticles();
-                initVisitorCounter();
-            } else { document.body.style.overflow = 'hidden'; }
-        };
-        function acceptAge() {
-            sessionStorage.setItem('flyAgeVerified', 'true');
-            ageGate.style.opacity = '0';
-            mainContent.classList.remove('blur-bg');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { ageGate.style.display = 'none'; initFlyParticles(); initVisitorCounter(); launchConfetti(); }, 500);
-        }
-        function rejectAge() { window.location.href = 'https://www.google.com'; }
+        const ageGate=document.getElementById('ageGate'), mainContent=document.getElementById('mainContent');
+        window.onload=()=>{ if(sessionStorage.getItem('flyAgeVerified')){ ageGate.style.display='none'; mainContent.classList.remove('blur-bg'); initFlyParticles(); initVisitorCounter(); } else { document.body.style.overflow='hidden'; } };
+        function acceptAge(){ sessionStorage.setItem('flyAgeVerified','true'); ageGate.style.opacity='0'; mainContent.classList.remove('blur-bg'); document.body.style.overflow='auto'; setTimeout(()=>{ ageGate.style.display='none'; initFlyParticles(); initVisitorCounter(); launchConfetti(); },500); }
+        function rejectAge(){ window.location.href='https://www.google.com'; }
 
         // ============ MOBILE MENU ============
-        function toggleMenu() { const m = document.getElementById('mobileMenu'); m.classList.toggle('hidden'); m.classList.toggle('flex'); }
+        function toggleMenu(){ const m=document.getElementById('mobileMenu'); m.classList.toggle('hidden'); m.classList.toggle('flex'); }
 
         // ============ NAVBAR ============
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) { navbar.classList.add('bg-black/95','backdrop-blur-md','border-b','border-fly-primary/20'); navbar.classList.remove('bg-gradient-to-b','from-black/95','to-transparent'); }
-            else { navbar.classList.remove('bg-black/95','backdrop-blur-md','border-b','border-fly-primary/20'); navbar.classList.add('bg-gradient-to-b','from-black/95','to-transparent'); }
-        });
+        const navbar=document.getElementById('navbar');
+        window.addEventListener('scroll',()=>{ if(window.scrollY>50){ navbar.classList.add('bg-black/95','backdrop-blur-md','border-b','border-fly-primary/20'); navbar.classList.remove('bg-gradient-to-b','from-black/95','to-transparent'); } else { navbar.classList.remove('bg-black/95','backdrop-blur-md','border-b','border-fly-primary/20'); navbar.classList.add('bg-gradient-to-b','from-black/95','to-transparent'); } });
 
         // ============ REVEAL ============
-        const revealEls = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((e) => { e.forEach(en => { if(en.isIntersecting) en.target.classList.add('active'); }); }, {threshold:0.1,rootMargin:"0px 0px -30px 0px"});
-        revealEls.forEach(el => observer.observe(el));
+        const revealEls=document.querySelectorAll('.reveal');
+        const observer=new IntersectionObserver((e)=>{ e.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('active'); }); },{threshold:0.1,rootMargin:"0px 0px -20px 0px"});
+        revealEls.forEach(el=>observer.observe(el));
 
-        // ============ TILT ============
-        document.querySelectorAll('.tilt-card').forEach(card => {
-            card.addEventListener('mousemove',(e)=>{if(window.innerWidth<768)return;const r=card.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,cX=r.width/2,cY=r.height/2,rX=((y-cY)/cY)*-6,rY=((x-cX)/cX)*6;card.style.transform=`perspective(1000px) rotateX(${rX}deg) rotateY(${rY}deg)`;});
-            card.addEventListener('mouseleave',()=>{card.style.transform='perspective(1000px) rotateX(0) rotateY(0)';});
+        // ============ TILT (solo desktop) ============
+        document.querySelectorAll('.tilt-card').forEach(card=>{
+            card.addEventListener('mousemove',(e)=>{ if(window.innerWidth<768)return; const r=card.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,cX=r.width/2,cY=r.height/2,rX=((y-cY)/cY)*-4,rY=((x-cX)/cX)*4; card.style.transform=`perspective(1000px) rotateX(${rX}deg) rotateY(${rY}deg)`; });
+            card.addEventListener('mouseleave',()=>{ card.style.transform='perspective(1000px) rotateX(0) rotateY(0)'; });
         });
 
         // ============ STATUS ============
-        function updateStatus(){const n=new Date(),d=n.getDay(),h=n.getHours(),m=n.getMinutes(),cm=h*60+m,dot=document.getElementById('statusDot'),txt=document.getElementById('statusText');dot.className='w-3 h-3 rounded-full status-pulse';if(d===1){dot.classList.add('bg-red-500');txt.textContent='CERRADO (Lunes)';txt.className='font-accent text-xs uppercase tracking-widest text-red-400 font-bold';}else if((d>=2||d===0)&&cm>=18*60){dot.classList.add('bg-fly-primary');txt.textContent='ABIERTO AHORA';txt.className='font-accent text-xs uppercase tracking-widest text-fly-primary font-bold';}else if((d>=2||d===0)&&cm<3*60&&cm>=0){dot.classList.add('bg-fly-primary');txt.textContent='ABIERTO AHORA';txt.className='font-accent text-xs uppercase tracking-widest text-fly-primary font-bold';}else{dot.classList.add('bg-red-500');txt.textContent='CERRADO (6PM-3AM)';txt.className='font-accent text-xs uppercase tracking-widest text-red-400 font-bold';}}
-        setInterval(updateStatus,60000);updateStatus();
+        function updateStatus(){ const n=new Date(),d=n.getDay(),h=n.getHours(),m=n.getMinutes(),cm=h*60+m,dot=document.getElementById('statusDot'),txt=document.getElementById('statusText'); dot.className='w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full status-pulse'; if(d===1){ dot.classList.add('bg-red-500'); txt.textContent='CERRADO (Lunes)'; txt.className='font-accent text-[10px] sm:text-xs uppercase tracking-widest text-red-400 font-bold'; } else if((d>=2||d===0)&&cm>=18*60||(d>=2||d===0)&&cm<3*60&&cm>=0){ dot.classList.add('bg-fly-primary'); txt.textContent='ABIERTO AHORA'; txt.className='font-accent text-[10px] sm:text-xs uppercase tracking-widest text-fly-primary font-bold'; } else { dot.classList.add('bg-red-500'); txt.textContent='CERRADO (6PM-3AM)'; txt.className='font-accent text-[10px] sm:text-xs uppercase tracking-widest text-red-400 font-bold'; } }
+        setInterval(updateStatus,60000); updateStatus();
 
         // ============ VISITORS ============
-        function initVisitorCounter(){const el=document.getElementById('visitorCount');let c=Math.floor(Math.random()*30)+30;el.textContent=c;setInterval(()=>{const ch=Math.floor(Math.random()*7)-3;c=Math.max(20,Math.min(80,c+ch));el.textContent=c;el.style.transform='scale(1.2)';setTimeout(()=>{el.style.transform='scale(1)';},200);},4000);}
+        function initVisitorCounter(){ const el=document.getElementById('visitorCount'); let c=Math.floor(Math.random()*30)+30; el.textContent=c; setInterval(()=>{ const ch=Math.floor(Math.random()*7)-3; c=Math.max(20,Math.min(80,c+ch)); el.textContent=c; el.style.transform='scale(1.2)'; setTimeout(()=>{ el.style.transform='scale(1)'; },200); },4000); }
 
         // ============ CALCULATOR ============
         const prices={medias:80,cubetas:600,baileMesa:150,bailePrivado:250,baileVIP:500,salaVIP:500,cooperacion:50};
-        function changeQty(id,d){const inp=document.getElementById(id);let v=parseInt(inp.value)||0;v=Math.max(0,v+d);inp.value=v;calculateTotal();}
-        function calculateTotal(){let t=0;for(const[k,p]of Object.entries(prices)){t+=(parseInt(document.getElementById(k).value)||0)*p;}const el=document.getElementById('totalAmount');el.textContent='$'+t.toLocaleString('es-MX');if(t>5000)el.className='font-accent font-black text-4xl gradient-text-pink glow-pink-subtle';else if(t>2000)el.className='font-accent font-black text-4xl gradient-text-gold glow-gold-subtle';else if(t>0)el.className='font-accent font-black text-4xl gradient-text glow-subtle';else el.className='font-accent font-black text-4xl gradient-text-gold glow-gold-subtle';if(t>=5000)launchMiniConfetti();}
+        function changeQty(id,d){ const inp=document.getElementById(id); let v=parseInt(inp.value)||0; v=Math.max(0,v+d); inp.value=v; calculateTotal(); }
+        function calculateTotal(){ let t=0; for(const[k,p]of Object.entries(prices)){ t+=(parseInt(document.getElementById(k).value)||0)*p; } const el=document.getElementById('totalAmount'); el.textContent='$'+t.toLocaleString('es-MX'); if(t>5000)el.className='font-accent font-black text-2xl sm:text-4xl gradient-text-pink glow-pink-subtle'; else if(t>2000)el.className='font-accent font-black text-2xl sm:text-4xl gradient-text-gold glow-gold-subtle'; else if(t>0)el.className='font-accent font-black text-2xl sm:text-4xl gradient-text glow-subtle'; else el.className='font-accent font-black text-2xl sm:text-4xl gradient-text-gold glow-gold-subtle'; if(t>=5000)launchMiniConfetti(); }
 
         // ============ CONFETTI ============
-        function launchConfetti(){const c=document.getElementById('confettiContainer'),cols=['#10b981','#34d399','#f59e0b','#fbbf24','#ec4899','#8b5cf6','#ef4444','#3b82f6'];for(let i=0;i<60;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.backgroundColor=cols[Math.floor(Math.random()*cols.length)];p.style.animationDelay=Math.random()*1.5+'s';p.style.animationDuration=(Math.random()*2+2)+'s';p.style.borderRadius=Math.random()>0.5?'50%':'2px';c.appendChild(p);setTimeout(()=>p.remove(),4000);}}
-        function launchMiniConfetti(){const c=document.getElementById('confettiContainer'),cols=['#f59e0b','#fbbf24','#ec4899','#10b981'];for(let i=0;i<20;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.backgroundColor=cols[Math.floor(Math.random()*cols.length)];p.style.animationDelay=Math.random()*0.5+'s';p.style.animationDuration=(Math.random()*1.5+1.5)+'s';p.style.borderRadius='50%';c.appendChild(p);setTimeout(()=>p.remove(),3000);}}
+        function launchConfetti(){ const c=document.getElementById('confettiContainer'),cols=['#10b981','#34d399','#f59e0b','#fbbf24','#ec4899','#8b5cf6','#ef4444','#3b82f6']; for(let i=0;i<40;i++){ const p=document.createElement('div'); p.className='confetti-piece'; p.style.left=Math.random()*100+'%'; p.style.backgroundColor=cols[Math.floor(Math.random()*cols.length)]; p.style.animationDelay=Math.random()*1.5+'s'; p.style.animationDuration=(Math.random()*2+2)+'s'; p.style.borderRadius=Math.random()>0.5?'50%':'2px'; c.appendChild(p); setTimeout(()=>p.remove(),4000); } }
+        function launchMiniConfetti(){ const c=document.getElementById('confettiContainer'),cols=['#f59e0b','#fbbf24','#ec4899','#10b981']; for(let i=0;i<15;i++){ const p=document.createElement('div'); p.className='confetti-piece'; p.style.left=Math.random()*100+'%'; p.style.backgroundColor=cols[Math.floor(Math.random()*cols.length)]; p.style.animationDelay=Math.random()*0.5+'s'; p.style.animationDuration=(Math.random()*1.5+1.5)+'s'; p.style.borderRadius='50%'; c.appendChild(p); setTimeout(()=>p.remove(),3000); } }
 
         // ============ PARTICLES ============
-        function initFlyParticles(){const c=document.getElementById('flyCanvas'),ctx=c.getContext('2d');c.width=window.innerWidth;c.height=window.innerHeight;const flies=[];for(let i=0;i<40;i++){flies.push({x:Math.random()*c.width,y:Math.random()*c.height,size:Math.random()*2+.5,vx:(Math.random()-.5)*1.5,vy:(Math.random()-.5)*1.5,opacity:Math.random()*.4+.1});}function anim(){ctx.clearRect(0,0,c.width,c.height);flies.forEach((f,i)=>{f.x+=f.vx;f.y+=f.vy;if(f.x<0||f.x>c.width)f.vx*=-1;if(f.y<0||f.y>c.height)f.vy*=-1;f.vx+=(Math.random()-.5)*.2;f.vy+=(Math.random()-.5)*.2;f.vx*=.99;f.vy*=.99;ctx.fillStyle=`rgba(16,185,129,${f.opacity})`;ctx.beginPath();ctx.arc(f.x,f.y,f.size,0,Math.PI*2);ctx.fill();for(let j=i+1;j<flies.length;j++){const dx=f.x-flies[j].x,dy=f.y-flies[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<100){ctx.strokeStyle=`rgba(16,185,129,${.06*(1-dist/100)})`;ctx.lineWidth=.3;ctx.beginPath();ctx.moveTo(f.x,f.y);ctx.lineTo(flies[j].x,flies[j].y);ctx.stroke();}}});requestAnimationFrame(anim);}anim();window.addEventListener('resize',()=>{c.width=window.innerWidth;c.height=window.innerHeight;});}
+        function initFlyParticles(){ const c=document.getElementById('flyCanvas'),ctx=c.getContext('2d'); c.width=window.innerWidth; c.height=window.innerHeight; const flies=[]; for(let i=0;i<30;i++){ flies.push({x:Math.random()*c.width,y:Math.random()*c.height,size:Math.random()*1.5+.5,vx:(Math.random()-.5)*1.2,vy:(Math.random()-.5)*1.2,opacity:Math.random()*.3+.1}); } function anim(){ ctx.clearRect(0,0,c.width,c.height); flies.forEach((f,i)=>{ f.x+=f.vx; f.y+=f.vy; if(f.x<0||f.x>c.width)f.vx*=-1; if(f.y<0||f.y>c.height)f.vy*=-1; f.vx+=(Math.random()-.5)*.15; f.vy+=(Math.random()-.5)*.15; f.vx*=.99; f.vy*=.99; ctx.fillStyle=`rgba(16,185,129,${f.opacity})`; ctx.beginPath(); ctx.arc(f.x,f.y,f.size,0,Math.PI*2); ctx.fill(); for(let j=i+1;j<flies.length;j++){ const dx=f.x-flies[j].x,dy=f.y-flies[j].y,dist=Math.sqrt(dx*dx+dy*dy); if(dist<80){ ctx.strokeStyle=`rgba(16,185,129,${.05*(1-dist/80)})`; ctx.lineWidth=.2; ctx.beginPath(); ctx.moveTo(f.x,f.y); ctx.lineTo(flies[j].x,flies[j].y); ctx.stroke(); } } }); requestAnimationFrame(anim); } anim(); window.addEventListener('resize',()=>{ c.width=window.innerWidth; c.height=window.innerHeight; }); }
 
         // ============ KEYBOARD ============
-        document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&document.getElementById('mobileMenu').classList.contains('flex'))toggleMenu();});
+        document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'&&document.getElementById('mobileMenu').classList.contains('flex'))toggleMenu(); });
 
-        // ============ EASTER EGG ============
-        console.log('%c🪰 LA MOSCA VIP %c| Mexicali, B.C. %cPWA v2.0',
-            'color:#10b981;font-size:2rem;font-weight:bold;','color:#fff;','color:#666;font-size:0.7rem;');
-        console.log('%c🎓 Developed by Egresado en Informática - Nov 2024','color:#f59e0b;font-style:italic;');
-        console.log('%c📱 Esta es una PWA: Instálala en tu pantalla de inicio','color:#34d399;');
+        console.log('%c🪰 MOSCA VIP PWA %cv3.0 Mobile-First','color:#10b981;font-size:1.5rem;font-weight:bold;','color:#fff;font-size:0.8rem;');
+        console.log('%c📱 Optimizado para todos los dispositivos','color:#34d399;');
     </script>
 </body>
 </html>
