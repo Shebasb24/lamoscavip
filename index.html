@@ -116,7 +116,6 @@
         @keyframes sparkle { 0%,100%{opacity:0;transform:scale(0)}50%{opacity:1;transform:scale(1)} }
         @keyframes confetti { 0%{transform:translateY(0)rotate(0)}100%{transform:translateY(-100vh)rotate(720deg)} }
         @keyframes infiniteSymbol { 0%,100%{transform:scale(1)}50%{transform:scale(1.3);text-shadow:0 0 15px rgba(16,185,129,0.8)} }
-        @keyframes counterGlow { 0%,100%{box-shadow:0 0 8px rgba(16,185,129,0.3)}50%{box-shadow:0 0 18px rgba(16,185,129,0.5),0 0 35px rgba(16,185,129,0.3)} }
         
         .fly-buzz { animation: flyBuzz 4s ease-in-out infinite; }
         .fly-float { animation: flyFloat 3s ease-in-out infinite; }
@@ -125,7 +124,6 @@
         .status-pulse { animation: pulse-dot 2s infinite; }
         .timer-pulse { animation: timerPulse 1s ease-in-out infinite; }
         .infinite-glow { animation: infiniteSymbol 2s ease-in-out infinite; display: inline-block; }
-        .counter-glow { animation: counterGlow 2s ease-in-out infinite; }
         
         /* ============ SCAN LINE ============ */
         .scan-line::after { content:''; position:absolute; top:-100%; left:0; width:100%; height:1px; background:linear-gradient(90deg,transparent,rgba(16,185,129,0.3),transparent); animation:scanLine 8s linear infinite; }
@@ -147,7 +145,7 @@
         input[type="number"]::-webkit-inner-spin-button { opacity:1; }
         .confetti-piece { position:fixed; width:8px; height:8px; top:-10px; animation:confetti 3s linear forwards; pointer-events:none; z-index:9999; }
         
-        /* ============ SAFE AREA (iPhone notch) ============ */
+        /* ============ SAFE AREA ============ */
         .safe-top { padding-top: env(safe-area-inset-top, 16px); }
         .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 16px); }
         
@@ -169,22 +167,24 @@
         }
         #closePrompt { background: none; border: none; color: #666; font-size: 18px; cursor: pointer; padding: 2px 6px; }
 
-        /* ============ RESPONSIVE FIXES ============ */
+        /* ============ RESPONSIVE ============ */
         @media (max-width: 360px) {
             .hero-title-text { font-size: 3.5rem !important; }
             .section-title-text { font-size: 2rem !important; }
-            .price-text { font-size: 2.5rem !important; }
         }
         @media (min-width: 361px) and (max-width: 480px) {
             .hero-title-text { font-size: 5rem !important; }
             .section-title-text { font-size: 2.5rem !important; }
         }
-        
-        /* Fix for iOS Safari 100vh issue */
         .h-screen-ios { height: 100vh; height: -webkit-fill-available; }
-        
-        /* Better touch targets */
         a, button, .clickable { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+
+        /* ============ COMISION BADGE ============ */
+        @keyframes comisionPulse {
+            0%, 100% { background: rgba(239, 68, 68, 0.1); }
+            50% { background: rgba(239, 68, 68, 0.25); }
+        }
+        .comision-badge { animation: comisionPulse 2s ease-in-out infinite; }
     </style>
 </head>
 <body class="antialiased safe-top safe-bottom">
@@ -197,7 +197,7 @@
         <span style="font-size:1.8rem;">🪰</span>
         <div style="flex:1;min-width:0;">
             <p style="color:#10b981;font-family:'Kanit',sans-serif;font-weight:bold;font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;">Instalar App</p>
-            <p style="color:#999;font-size:0.65rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Agrega a pantalla de inicio</p>
+            <p style="color:#999;font-size:0.65rem;">Agrega a pantalla de inicio</p>
         </div>
         <button id="installBtn" onclick="installApp()">Instalar</button>
         <button id="closePrompt" onclick="closeInstallPrompt()">✕</button>
@@ -227,18 +227,10 @@
         </div>
     </div>
 
-    <!-- ============ LIVE STATUS ============ -->
+    <!-- ============ LIVE STATUS (SIN CONTADOR DE VISITANTES) ============ -->
     <div id="liveStatus" class="fixed bottom-4 sm:bottom-6 right-3 sm:right-6 z-50 glass-dark rounded-full py-2 sm:py-3 px-3 sm:px-5 flex items-center gap-2 sm:gap-3 cursor-pointer hover:scale-105 transition-all border border-fly-primary/30" onclick="document.getElementById('horarios').scrollIntoView({behavior:'smooth'})">
         <div id="statusDot" class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-fly-primary status-pulse"></div>
         <span id="statusText" class="font-accent text-[10px] sm:text-xs uppercase tracking-widest text-fly-primary font-bold">ABIERTO</span>
-    </div>
-
-    <!-- ============ LIVE VISITORS COUNTER ============ -->
-    <div id="liveCounter" class="fixed bottom-4 sm:bottom-6 left-3 sm:left-6 z-50 glass-dark rounded-full py-2 sm:py-3 px-3 sm:px-5 flex items-center gap-2 sm:gap-3 border border-fly-pink/30 counter-glow">
-        <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-fly-pink status-pulse"></div>
-        <span class="font-accent text-[10px] sm:text-xs uppercase tracking-widest text-fly-pink font-bold">
-            🟢 <span id="visitorCount" class="live-counter inline-block">47</span>
-        </span>
     </div>
 
     <!-- ============ MAIN CONTENT ============ -->
@@ -352,7 +344,6 @@
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
                     
-                    <!-- Cooperación -->
                     <div class="tilt-card glass-dark p-5 sm:p-8 rounded-2xl text-center border-2 border-fly-gold/30 border-glow-gold hover-scale transition-all relative overflow-hidden scan-line reveal delay-100 sm:col-span-2 lg:col-span-1">
                         <div class="absolute top-2 sm:top-3 left-2 sm:left-3 text-[10px] sm:text-xs font-accent text-fly-gold/60 uppercase tracking-widest">VOLUNTARIO</div>
                         <div class="text-3xl sm:text-5xl mb-3 sm:mb-4">🤝</div>
@@ -406,7 +397,7 @@
             </div>
         </section>
 
-        <!-- ============ CALCULADORA ============ -->
+        <!-- ============ CALCULADORA CON COMISIÓN ============ -->
         <section id="calculadora" class="py-16 sm:py-24 bg-fly-darker relative border-t border-fly-gold/20">
             <div class="absolute top-0 right-0 w-64 sm:w-96 h-64 sm:h-96 bg-fly-gold/3 blur-[150px] sm:blur-[200px] rounded-full pointer-events-none"></div>
             <div class="container mx-auto px-4 sm:px-6 relative z-10">
@@ -418,7 +409,8 @@
                 <div class="max-w-lg mx-auto">
                     <div class="glass-dark p-5 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-fly-gold/30 border-glow-gold reveal">
                         <div class="space-y-3 sm:space-y-4">
-                            <!-- Cada item de la calculadora -->
+                            
+                            <!-- Items calculadora -->
                             <div class="flex items-center justify-between gap-2">
                                 <label class="text-white font-accent text-[11px] sm:text-sm flex-1 min-w-0">🍺 Medias ($80)</label>
                                 <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
@@ -475,15 +467,50 @@
                                     <button onclick="changeQty('cooperacion',1)" class="calc-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-600/20 text-gray-400 font-bold text-sm">+</button>
                                 </div>
                             </div>
-                            <!-- Total -->
-                            <div class="border-t-2 border-fly-gold/30 pt-4 sm:pt-6 mt-4 sm:mt-6">
+
+                            <!-- TOTALES -->
+                            <div class="border-t-2 border-fly-gold/30 pt-4 sm:pt-6 mt-4 sm:mt-6 space-y-3">
+                                <!-- Subtotal -->
                                 <div class="flex justify-between items-center">
-                                    <span class="font-display text-lg sm:text-2xl text-white">TOTAL</span>
-                                    <span id="totalAmount" class="font-accent font-black text-2xl sm:text-4xl gradient-text-gold glow-gold-subtle">$0</span>
+                                    <span class="font-accent text-sm text-gray-400">SUBTOTAL</span>
+                                    <span id="subtotalAmount" class="font-accent font-bold text-xl text-white">$0</span>
+                                </div>
+                                
+                                <!-- Comisión tarjeta -->
+                                <div class="flex justify-between items-center">
+                                    <span class="font-accent text-xs text-red-400 flex items-center gap-1">
+                                        💳 Comisión terminal <span class="text-[10px]">(10%)</span>
+                                    </span>
+                                    <span id="comisionAmount" class="font-accent font-bold text-lg text-red-400">$0</span>
+                                </div>
+                                
+                                <!-- Total final -->
+                                <div class="flex justify-between items-center pt-3 border-t border-red-500/20">
+                                    <span class="font-display text-lg sm:text-xl text-white">TOTAL CON TARJETA</span>
+                                    <span id="totalAmount" class="font-accent font-black text-2xl sm:text-3xl gradient-text-gold glow-gold-subtle">$0</span>
+                                </div>
+                                
+                                <!-- Total efectivo -->
+                                <div class="flex justify-between items-center pt-2">
+                                    <span class="font-accent text-xs text-fly-primary flex items-center gap-1">
+                                        💵 Total en efectivo
+                                    </span>
+                                    <span id="efectivoAmount" class="font-accent font-bold text-lg text-fly-primary">$0</span>
                                 </div>
                             </div>
+
+                            <!-- Botón calcular -->
                             <div class="text-center mt-4 sm:mt-6">
-                                <button onclick="calculateTotal()" class="px-6 sm:px-8 py-3 bg-gradient-to-r from-fly-gold to-amber-600 text-black font-accent font-bold rounded-full text-xs sm:text-sm uppercase tracking-wider">🧮 Calcular Total</button>
+                                <button onclick="calculateTotal()" class="px-6 sm:px-8 py-3 bg-gradient-to-r from-fly-gold to-amber-600 text-black font-accent font-bold rounded-full text-xs sm:text-sm uppercase tracking-wider">
+                                    🧮 Calcular Total
+                                </button>
+                            </div>
+
+                            <!-- Aviso comisión -->
+                            <div class="comision-badge rounded-xl p-3 border border-red-500/20 text-center">
+                                <p class="text-red-400 text-[10px] sm:text-xs">
+                                    ⚠️ <span class="font-bold">AVISO:</span> Pago con tarjeta tiene <span class="font-bold">10% de comisión</span> sobre el subtotal
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -564,6 +591,7 @@
                             <li><i class="fas fa-id-card text-fly-primary mr-2"></i> Solo +18 (INE obligatoria)</li>
                             <li><i class="fas fa-tshirt text-fly-primary mr-2"></i> Casual, sin fachas</li>
                             <li><i class="fas fa-camera text-fly-primary mr-2"></i> No cámaras en interior</li>
+                            <li><i class="fas fa-credit-card text-red-400 mr-2"></i> <span class="text-red-400">Tarjeta: +10% comisión</span></li>
                         </ul>
                     </div>
                 </div>
@@ -597,8 +625,8 @@
 
         // ============ AGE GATE ============
         const ageGate=document.getElementById('ageGate'), mainContent=document.getElementById('mainContent');
-        window.onload=()=>{ if(sessionStorage.getItem('flyAgeVerified')){ ageGate.style.display='none'; mainContent.classList.remove('blur-bg'); initFlyParticles(); initVisitorCounter(); } else { document.body.style.overflow='hidden'; } };
-        function acceptAge(){ sessionStorage.setItem('flyAgeVerified','true'); ageGate.style.opacity='0'; mainContent.classList.remove('blur-bg'); document.body.style.overflow='auto'; setTimeout(()=>{ ageGate.style.display='none'; initFlyParticles(); initVisitorCounter(); launchConfetti(); },500); }
+        window.onload=()=>{ if(sessionStorage.getItem('flyAgeVerified')){ ageGate.style.display='none'; mainContent.classList.remove('blur-bg'); initFlyParticles(); } else { document.body.style.overflow='hidden'; } };
+        function acceptAge(){ sessionStorage.setItem('flyAgeVerified','true'); ageGate.style.opacity='0'; mainContent.classList.remove('blur-bg'); document.body.style.overflow='auto'; setTimeout(()=>{ ageGate.style.display='none'; initFlyParticles(); launchConfetti(); },500); }
         function rejectAge(){ window.location.href='https://www.google.com'; }
 
         // ============ MOBILE MENU ============
@@ -623,13 +651,34 @@
         function updateStatus(){ const n=new Date(),d=n.getDay(),h=n.getHours(),m=n.getMinutes(),cm=h*60+m,dot=document.getElementById('statusDot'),txt=document.getElementById('statusText'); dot.className='w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full status-pulse'; if(d===1){ dot.classList.add('bg-red-500'); txt.textContent='CERRADO (Lunes)'; txt.className='font-accent text-[10px] sm:text-xs uppercase tracking-widest text-red-400 font-bold'; } else if((d>=2||d===0)&&cm>=18*60||(d>=2||d===0)&&cm<3*60&&cm>=0){ dot.classList.add('bg-fly-primary'); txt.textContent='ABIERTO AHORA'; txt.className='font-accent text-[10px] sm:text-xs uppercase tracking-widest text-fly-primary font-bold'; } else { dot.classList.add('bg-red-500'); txt.textContent='CERRADO (6PM-3AM)'; txt.className='font-accent text-[10px] sm:text-xs uppercase tracking-widest text-red-400 font-bold'; } }
         setInterval(updateStatus,60000); updateStatus();
 
-        // ============ VISITORS ============
-        function initVisitorCounter(){ const el=document.getElementById('visitorCount'); let c=Math.floor(Math.random()*30)+30; el.textContent=c; setInterval(()=>{ const ch=Math.floor(Math.random()*7)-3; c=Math.max(20,Math.min(80,c+ch)); el.textContent=c; el.style.transform='scale(1.2)'; setTimeout(()=>{ el.style.transform='scale(1)'; },200); },4000); }
-
-        // ============ CALCULATOR ============
+        // ============ CALCULATOR CON COMISIÓN ============
         const prices={medias:80,cubetas:600,baileMesa:150,bailePrivado:250,baileVIP:500,salaVIP:500,cooperacion:50};
+        const COMISION_RATE = 0.10; // 10%
+        
         function changeQty(id,d){ const inp=document.getElementById(id); let v=parseInt(inp.value)||0; v=Math.max(0,v+d); inp.value=v; calculateTotal(); }
-        function calculateTotal(){ let t=0; for(const[k,p]of Object.entries(prices)){ t+=(parseInt(document.getElementById(k).value)||0)*p; } const el=document.getElementById('totalAmount'); el.textContent='$'+t.toLocaleString('es-MX'); if(t>5000)el.className='font-accent font-black text-2xl sm:text-4xl gradient-text-pink glow-pink-subtle'; else if(t>2000)el.className='font-accent font-black text-2xl sm:text-4xl gradient-text-gold glow-gold-subtle'; else if(t>0)el.className='font-accent font-black text-2xl sm:text-4xl gradient-text glow-subtle'; else el.className='font-accent font-black text-2xl sm:text-4xl gradient-text-gold glow-gold-subtle'; if(t>=5000)launchMiniConfetti(); }
+        
+        function calculateTotal(){ 
+            let subtotal=0; 
+            for(const[k,p]of Object.entries(prices)){ subtotal+=(parseInt(document.getElementById(k).value)||0)*p; }
+            
+            const comision = Math.round(subtotal * COMISION_RATE);
+            const totalTarjeta = subtotal + comision;
+            
+            // Actualizar displays
+            document.getElementById('subtotalAmount').textContent='$'+subtotal.toLocaleString('es-MX');
+            document.getElementById('comisionAmount').textContent='$'+comision.toLocaleString('es-MX');
+            document.getElementById('totalAmount').textContent='$'+totalTarjeta.toLocaleString('es-MX');
+            document.getElementById('efectivoAmount').textContent='$'+subtotal.toLocaleString('es-MX');
+            
+            // Colores dinámicos
+            const totalEl=document.getElementById('totalAmount');
+            if(totalTarjeta>5000) totalEl.className='font-accent font-black text-2xl sm:text-3xl gradient-text-pink glow-pink-subtle';
+            else if(totalTarjeta>2000) totalEl.className='font-accent font-black text-2xl sm:text-3xl gradient-text-gold glow-gold-subtle';
+            else if(totalTarjeta>0) totalEl.className='font-accent font-black text-2xl sm:text-3xl gradient-text glow-subtle';
+            else totalEl.className='font-accent font-black text-2xl sm:text-3xl gradient-text-gold glow-gold-subtle';
+            
+            if(totalTarjeta>=5000) launchMiniConfetti();
+        }
 
         // ============ CONFETTI ============
         function launchConfetti(){ const c=document.getElementById('confettiContainer'),cols=['#10b981','#34d399','#f59e0b','#fbbf24','#ec4899','#8b5cf6','#ef4444','#3b82f6']; for(let i=0;i<40;i++){ const p=document.createElement('div'); p.className='confetti-piece'; p.style.left=Math.random()*100+'%'; p.style.backgroundColor=cols[Math.floor(Math.random()*cols.length)]; p.style.animationDelay=Math.random()*1.5+'s'; p.style.animationDuration=(Math.random()*2+2)+'s'; p.style.borderRadius=Math.random()>0.5?'50%':'2px'; c.appendChild(p); setTimeout(()=>p.remove(),4000); } }
@@ -641,8 +690,8 @@
         // ============ KEYBOARD ============
         document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'&&document.getElementById('mobileMenu').classList.contains('flex'))toggleMenu(); });
 
-        console.log('%c🪰 MOSCA VIP PWA %cv3.0 Mobile-First','color:#10b981;font-size:1.5rem;font-weight:bold;','color:#fff;font-size:0.8rem;');
-        console.log('%c📱 Optimizado para todos los dispositivos','color:#34d399;');
+        console.log('%c🪰 MOSCA VIP PWA %cv3.1','color:#10b981;font-size:1.5rem;font-weight:bold;','color:#fff;font-size:0.8rem;');
+        console.log('%c💳 Calculadora con comisión de terminal 10%','color:#ef4444;');
     </script>
 </body>
 </html>
